@@ -9,14 +9,19 @@ button{border:0;border-radius:14px;padding:12px 15px;background:#2864e8;color:wh
 .choice{margin:5px;background:#edf3ff;color:#173a7a}
 .speaking{border:2px solid #bdebd9;background:#f3fff9}
 .progressline{font-weight:bold;color:#687386;margin-bottom:10px}
+.recbtn{background:#c73535}.stopbtn{background:#555}.listenbtn{background:#6d45c7}
+.scorebox{font-size:22px;font-weight:bold;margin:12px 0}
+.goodmsg{background:#e9f9ef;padding:12px;border-radius:14px}
+.trymsg{background:#fff5df;padding:12px;border-radius:14px}
+.needmsg{background:#ffe9e9;padding:12px;border-radius:14px}
 .bar{display:flex;gap:12px;align-items:center}.steps{display:flex;gap:7px;flex-wrap:wrap;margin:17px 0}.steps button{flex:1 1 120px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:11px}
 .word{text-align:center}.word .en{font-size:22px;font-weight:bold}.word .emoji{font-size:38px}.big{font-size:27px;font-weight:bold}.answer{display:block;width:100%;text-align:left;margin:7px 0;background:#edf3ff;color:#173a7a}.correct{background:#dcf7e5!important;color:#126533!important}.wrong{background:#ffe0e0!important;color:#8b1b1b!important}
 .note{width:100%;border-collapse:collapse}.note td,.note th{padding:10px;border-bottom:1px solid #e5e8ef;text-align:left}.reward{text-align:center;font-size:20px}.flag{font-size:80px;text-align:center}.overlay{position:fixed;inset:0;background:linear-gradient(145deg,#e7f0ff,#fff5d7);z-index:20;display:flex;align-items:center;justify-content:center;padding:20px}.welcome{max-width:540px;background:white;border-radius:28px;padding:35px 25px;text-align:center;box-shadow:0 18px 60px #0002}.welcome p{font-size:20px;line-height:1.5}.star{font-size:70px}footer{text-align:center;color:#7d8797;padding:20px}
 @media(max-width:600px){.units{grid-template-columns:1fr}.bar h2{font-size:18px}.welcome h1{font-size:28px}}
 </style></head><body>
 <div id="welcome" class="overlay"><div class="welcome"><div class="star">🌟</div><h1>Chào Gia Khôi!</h1><p id="wish"></p><button onclick="enter()">🚀 Bắt đầu học</button></div></div>
-<header><h1>📚 Laptinh Learning V6</h1><p>Tiếng Anh lớp 4 • Góc học tập của Gia Khôi</p><div class="stats">⭐ Tổng sao: <b id="stars">0</b> &nbsp; | &nbsp; 🏆 Unit hoàn thành: <b id="done">0</b>/10</div></header>
-<main><section id="home"><h2>10 Unit</h2><div class="card"><b>🎤 Luyện nói:</b> mỗi Unit có phần nghe mẫu → trẻ đọc theo → nhận diện giọng nói. Nếu mở file trực tiếp mà Chrome chặn micro, nên đưa file lên website HTTPS để luyện nói ổn định hơn.</div><br><div class="card"><b>🚀 Mới:</b> Hoàn thành Game cuối bài sẽ mở <b>Luyện nâng cao</b>. Phần nâng cao thưởng <b>⭐ x2</b>.</div><br><div id="units" class="units"></div></section>
+<header><h1>📚 Laptinh Learning V7</h1><p>Tiếng Anh lớp 4 • Góc học tập của Gia Khôi</p><div class="stats">⭐ Tổng sao: <b id="stars">0</b> &nbsp; | &nbsp; 🏆 Unit hoàn thành: <b id="done">0</b>/10</div></header>
+<main><section id="home"><h2>10 Unit</h2><div class="card"><b>🎤 Luyện nói V7:</b> Nghe mẫu → thu giọng → nghe lại chính giọng của con → kiểm tra phát âm. Nếu mở file trực tiếp mà Chrome chặn micro, nên đưa file lên website HTTPS để luyện nói ổn định hơn.</div><br><div class="card"><b>🚀 Mới:</b> Hoàn thành Game cuối bài sẽ mở <b>Luyện nâng cao</b>. Phần nâng cao thưởng <b>⭐ x2</b>.</div><br><div id="units" class="units"></div></section>
 <section id="learn" class="hidden"><div class="bar"><button class="light" onclick="home()">← Trang chủ</button><h2 id="utitle"></h2></div><div id="steps" class="steps"></div><div id="content"></div></section></main>
 <footer>❤️ Ba chúc Gia Khôi chăm ngoan, học tốt và tiến bộ mỗi ngày!</footer><script>
 const DATA=[{"n": 1, "title": "My friends", "vi": "Bạn bè", "goal": "Hỏi và trả lời một người đến từ đâu; nhận biết một số quốc gia.", "words": [["friend", "bạn"], ["from", "đến từ"], ["Vietnam", "Việt Nam"], ["Japan", "Nhật Bản"], ["Australia", "Úc"], ["Britain", "Anh"], ["America", "Mỹ"], ["Malaysia", "Malaysia"]], "q": "Where are you from?", "a": "I'm from Vietnam.", "game": [["🇻🇳", "Vietnam"], ["🇯🇵", "Japan"], ["🇦🇺", "Australia"], ["🇬🇧", "Britain"]]}, {"n": 2, "title": "Time and daily routines", "vi": "Thời gian và hoạt động hằng ngày", "goal": "Nói giờ và một số hoạt động thường ngày.", "words": [["time", "thời gian"], ["get up", "thức dậy"], ["have breakfast", "ăn sáng"], ["go to school", "đi học"], ["have lunch", "ăn trưa"], ["go home", "về nhà"], ["do homework", "làm bài tập"], ["go to bed", "đi ngủ"]], "q": "What time do you get up?", "a": "I get up at six o'clock.", "game": [["🌅", "get up"], ["🥣", "have breakfast"], ["🏫", "go to school"], ["🛏️", "go to bed"]]}, {"n": 3, "title": "My week", "vi": "Tuần của em", "goal": "Nhận biết các ngày trong tuần và nói hoạt động theo ngày.", "words": [["Monday", "thứ Hai"], ["Tuesday", "thứ Ba"], ["Wednesday", "thứ Tư"], ["Thursday", "thứ Năm"], ["Friday", "thứ Sáu"], ["Saturday", "thứ Bảy"], ["Sunday", "Chủ nhật"], ["week", "tuần"]], "q": "What do you do on Sundays?", "a": "I play football on Sundays.", "game": [["1️⃣", "Monday"], ["3️⃣", "Wednesday"], ["6️⃣", "Saturday"], ["7️⃣", "Sunday"]]}, {"n": 4, "title": "My birthday party", "vi": "Tiệc sinh nhật của em", "goal": "Nói về sinh nhật, tháng và một số hoạt động trong tiệc.", "words": [["birthday", "sinh nhật"], ["party", "bữa tiệc"], ["cake", "bánh sinh nhật"], ["present", "quà"], ["month", "tháng"], ["January", "tháng Một"], ["May", "tháng Năm"], ["December", "tháng Mười Hai"]], "q": "When's your birthday?", "a": "It's in May.", "game": [["🎂", "birthday"], ["🎁", "present"], ["🍰", "cake"], ["5️⃣", "May"]]}, {"n": 5, "title": "Things we can do", "vi": "Những việc chúng ta có thể làm", "goal": "Nói về khả năng với can/can't.", "words": [["can", "có thể"], ["can't", "không thể"], ["swim", "bơi"], ["run", "chạy"], ["sing", "hát"], ["dance", "nhảy/múa"], ["draw", "vẽ"], ["ride a bike", "đi xe đạp"]], "q": "Can you swim?", "a": "Yes, I can.", "game": [["🏊", "swim"], ["🏃", "run"], ["🎤", "sing"], ["🚲", "ride a bike"]]}, {"n": 6, "title": "Our school facilities", "vi": "Cơ sở vật chất trường học", "goal": "Gọi tên và nói về một số khu vực, phòng trong trường.", "words": [["school", "trường học"], ["classroom", "phòng học"], ["library", "thư viện"], ["computer room", "phòng máy tính"], ["music room", "phòng âm nhạc"], ["playground", "sân chơi"], ["gym", "nhà thể chất"], ["garden", "vườn"]], "q": "Is there a library at your school?", "a": "Yes, there is.", "game": [["📚", "library"], ["💻", "computer room"], ["🎵", "music room"], ["⚽", "playground"]]}, {"n": 7, "title": "Our timetables", "vi": "Thời khóa biểu của chúng em", "goal": "Nói môn học có vào ngày nào trong thời khóa biểu.", "words": [["timetable", "thời khóa biểu"], ["English", "Tiếng Anh"], ["Maths", "Toán"], ["Vietnamese", "Tiếng Việt"], ["Science", "Khoa học"], ["Art", "Mỹ thuật"], ["Music", "Âm nhạc"], ["PE", "Thể dục"]], "q": "When do you have English?", "a": "I have English on Monday.", "game": [["🔢", "Maths"], ["🎨", "Art"], ["🎵", "Music"], ["🏃", "PE"]]}, {"n": 8, "title": "My favourite subjects", "vi": "Môn học yêu thích của em", "goal": "Nói môn học yêu thích và hỏi lý do đơn giản.", "words": [["favourite", "yêu thích"], ["subject", "môn học"], ["English", "Tiếng Anh"], ["Maths", "Toán"], ["Science", "Khoa học"], ["Art", "Mỹ thuật"], ["Music", "Âm nhạc"], ["interesting", "thú vị"]], "q": "What's your favourite subject?", "a": "My favourite subject is English.", "game": [["🇬🇧", "English"], ["🔢", "Maths"], ["🔬", "Science"], ["🎨", "Art"]]}, {"n": 9, "title": "Our sports day", "vi": "Ngày hội thể thao", "goal": "Nói về hoạt động thể thao và ngày hội thể thao.", "words": [["sports day", "ngày hội thể thao"], ["football", "bóng đá"], ["badminton", "cầu lông"], ["table tennis", "bóng bàn"], ["run", "chạy"], ["jump", "nhảy"], ["play", "chơi"], ["team", "đội"]], "q": "What are you going to do on Sports Day?", "a": "I'm going to play football.", "game": [["⚽", "football"], ["🏸", "badminton"], ["🏓", "table tennis"], ["🏃", "run"]]}, {"n": 10, "title": "Our summer holidays", "vi": "Kỳ nghỉ hè của chúng em", "goal": "Nói về nơi sẽ đến và hoạt động trong kỳ nghỉ hè.", "words": [["summer", "mùa hè"], ["holiday", "kỳ nghỉ"], ["beach", "bãi biển"], ["sea", "biển"], ["mountains", "núi"], ["visit", "thăm"], ["travel", "du lịch"], ["family", "gia đình"]], "q": "Where are you going this summer?", "a": "I'm going to the beach.", "game": [["🏖️", "beach"], ["🌊", "sea"], ["⛰️", "mountains"], ["👨‍👩‍👦", "family"]]}];
@@ -146,6 +151,8 @@ function advancedAns(i,a,b){
  setTimeout(()=>{ai++;advanced()},650)
 }
 
+let mediaRecorder=null, recordedChunks=[], recordedUrl=null, currentSpeechTarget="", currentSpeechIdx=0;
+
 function speakingPractice(){
  let items=[
    ["Từ vựng",U.words[0][0]],
@@ -153,56 +160,99 @@ function speakingPractice(){
    ["Từ vựng",U.words[4][0]],
    ["Câu hỏi",U.q],
    ["Câu trả lời",U.a],
-   ["Hội thoại","A: "+U.q+" | B: "+U.a]
+   ["Hội thoại",U.a]
  ];
  let i=+(sessionStorage.getItem(key("speak_i"))||0); if(i>=items.length)i=0;
- let item=items[i], shown=item[1], target=item[1];
- if(item[0]==="Hội thoại") target=U.a;
- let safe=target.replaceAll("'","\\'");
- let local=location.protocol==="file:";
- document.getElementById("content").innerHTML=`<div class="card speaking"><h2>🎤 Luyện nói – Unit ${U.n}</h2><div class="progressline">Bài ${i+1}/6 • ${item[0]}</div>
- <p>1️⃣ Bấm <b>Nghe mẫu</b>.<br>2️⃣ Gia Khôi đọc theo thật rõ.<br>3️⃣ Nếu micro hoạt động, bấm <b>🎤 Kiểm tra giọng nói</b>.</p>
- <div class="dialogue"><p class="big">${shown.replace(" | ","<br>")}</p>
+ let item=items[i], target=item[1], safe=target.replaceAll("'","\\'");
+ currentSpeechTarget=target; currentSpeechIdx=i;
+ let dialogue=item[0]==="Hội thoại"?`<p><b>A:</b> ${U.q}</p><p><b>B (Gia Khôi):</b> ${U.a}</p>`:`<p class="big">${target}</p>`;
+ document.getElementById("content").innerHTML=`<div class="card speaking">
+ <h2>🎤 Luyện nói – Unit ${U.n}</h2>
+ <div class="progressline">Bài ${i+1}/6 • ${item[0]}</div>
+ <div class="dialogue">${dialogue}</div>
+ <p>① Nghe mẫu → ② Thu giọng → ③ Nghe lại → ④ Kiểm tra cách đọc.</p>
  <button onclick="speak('${safe}')">🔊 Nghe mẫu</button>
- <button class="speakbtn" onclick="speechStep('${safe}',${i})">🎤 Kiểm tra giọng nói</button>
- <button class="light" onclick="manualSpeakingDone(${i})">✅ Con đã đọc xong</button></div>
- <div id="speechFeedback" class="speechbox">${local?"💡 Bạn đang mở bằng file C:/... nên Chrome có thể chặn micro. Gia Khôi vẫn có thể <b>Nghe mẫu → đọc theo → bấm “Con đã đọc xong”</b>. Khi đưa lên HTTPS, nút kiểm tra giọng nói sẽ ổn định hơn.":"Gia Khôi hãy nghe mẫu trước nhé. 😊"}</div></div>`;
+ <button id="recStart" class="recbtn" onclick="startRecording()">🎤 Thu giọng của con</button>
+ <button id="recStop" class="stopbtn" onclick="stopRecording()" disabled>⏹ Dừng</button>
+ <button id="listenMine" class="listenbtn" onclick="listenRecording()" disabled>▶️ Nghe lại giọng của con</button>
+ <button class="speakbtn" onclick="speechStep('${safe}',${i})">🎯 Kiểm tra phát âm</button>
+ <div id="speechFeedback" class="speechbox">Gia Khôi hãy nghe mẫu trước rồi đọc thật rõ nhé. 😊</div>
+ <audio id="myAudio" controls style="display:none;width:100%;margin-top:12px"></audio>
+ </div>`;
+}
+
+async function startRecording(){
+ let box=document.getElementById("speechFeedback");
+ if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
+   box.innerHTML="🎤 Trình duyệt chưa cho phép thu âm. Hãy mở trang bằng HTTPS trên GitHub Pages và cho phép Microphone.";return
+ }
+ try{
+   let stream=await navigator.mediaDevices.getUserMedia({audio:true});
+   recordedChunks=[];
+   mediaRecorder=new MediaRecorder(stream);
+   mediaRecorder.ondataavailable=e=>{if(e.data.size>0)recordedChunks.push(e.data)};
+   mediaRecorder.onstop=()=>{
+     let blob=new Blob(recordedChunks,{type:mediaRecorder.mimeType||"audio/webm"});
+     if(recordedUrl)URL.revokeObjectURL(recordedUrl);
+     recordedUrl=URL.createObjectURL(blob);
+     let a=document.getElementById("myAudio");a.src=recordedUrl;a.style.display="block";
+     document.getElementById("listenMine").disabled=false;
+     stream.getTracks().forEach(t=>t.stop());
+     box.innerHTML="✅ Đã thu xong. Bấm <b>▶️ Nghe lại giọng của con</b>, sau đó bấm <b>🎯 Kiểm tra phát âm</b>.";
+   };
+   mediaRecorder.start();
+   document.getElementById("recStart").disabled=true;
+   document.getElementById("recStop").disabled=false;
+   box.innerHTML="🔴 Đang thu... Gia Khôi đọc câu phía trên nhé!";
+ }catch(e){
+   box.innerHTML="🎤 Chưa truy cập được micro. Hãy bấm biểu tượng ổ khóa trên thanh địa chỉ → Microphone → Allow."
+ }
+}
+function stopRecording(){
+ if(mediaRecorder&&mediaRecorder.state==="recording")mediaRecorder.stop();
+ document.getElementById("recStart").disabled=false;
+ document.getElementById("recStop").disabled=true;
+}
+function listenRecording(){
+ let a=document.getElementById("myAudio");if(a&&a.src){a.currentTime=0;a.play()}
 }
 
 function speechStep(target,idx){
  let box=document.getElementById("speechFeedback");
  let SR=window.SpeechRecognition||window.webkitSpeechRecognition;
- if(!SR || location.protocol==="file:"){
-   box.innerHTML="🎤 Trình duyệt đang không cho trang HTML local dùng nhận diện giọng nói.<br><b>Không sao:</b> Gia Khôi nghe mẫu, đọc theo 2–3 lần rồi bấm <b>✅ Con đã đọc xong</b>.";
-   return;
+ if(!SR){
+   box.innerHTML="🎯 Trình duyệt này chưa hỗ trợ chấm bằng nhận diện giọng nói. Gia Khôi vẫn có thể nghe lại bản thu và luyện theo câu mẫu.";return
  }
  let r=new SR();r.lang="en-US";r.interimResults=false;r.maxAlternatives=3;
- box.innerHTML="🎧 Đang nghe... Gia Khôi đọc nhé!";
+ box.innerHTML="🎧 Hãy đọc lại một lần nữa để hệ thống kiểm tra...";
  r.onresult=e=>{
    let said=e.results[0][0].transcript, a=normalizeSpeech(said), b=normalizeSpeech(target);
-   let aw=a.split(" "), bw=b.split(" "), hits=bw.filter(x=>aw.includes(x)).length, pct=Math.round(hits/bw.length*100);
+   let aw=a.split(" "), bw=b.split(" ");
+   let hits=bw.filter(x=>aw.includes(x)).length;
+   let pct=Math.min(100,Math.round(hits/Math.max(1,bw.length)*100));
    if(a===b)pct=100;
-   box.innerHTML=`Con đọc: <b>${said}</b><br>🎯 Mức khớp từ: <b>${pct}%</b><br>${pct>=75?"⭐ Rất tốt!":"💪 Nghe lại mẫu và đọc chậm hơn nhé."}<br><br><button onclick="speak('${target.replaceAll("'","\\'")}')">🔊 Nghe lại</button> <button class="speakbtn" onclick="nextSpeaking(${idx},${pct})">➡️ Bài tiếp theo</button>`;
+   let msg="", cls="";
+   if(pct>=80){msg="⭐ Rất tốt Gia Khôi! Con đọc khá chính xác rồi!";cls="goodmsg"}
+   else if(pct>=50){msg="💪 Con cố gắng nghe kỹ và đọc chính xác hơn nhé! Con vẫn có thể sang bài tiếp theo.";cls="trymsg"}
+   else{msg="🔄 Con nghe lại câu mẫu và đọc lại nhé! Cần đạt ít nhất 50% để hoàn thành câu này.";cls="needmsg"}
+   box.innerHTML=`<div class="scorebox">🎯 ${pct}%</div><div class="${cls}">${msg}</div><p>Hệ thống nghe được: <b>${said}</b></p>
+   <button onclick="speak('${target.replaceAll("'","\\'")}')">🔊 Nghe mẫu lại</button>
+   ${pct>=50?`<button class="speakbtn" onclick="nextSpeaking(${idx},${pct})">✅ Hoàn thành & tiếp tục</button>`:`<button class="recbtn" onclick="speechStep('${target.replaceAll("'","\\'")}',${idx})">🎤 Đọc lại</button>`}`;
  };
- r.onerror=()=>box.innerHTML="🎤 Chưa nghe rõ hoặc micro bị chặn. Gia Khôi có thể dùng nút <b>✅ Con đã đọc xong</b> để tiếp tục.";
- try{r.start()}catch(e){box.innerHTML="🎤 Micro chưa khởi động được. Hãy dùng chế độ đọc theo thủ công."}
-}
-
-function manualSpeakingDone(idx){
- stars(1,key("manual_speaking_"+idx));
- nextSpeaking(idx,70);
+ r.onerror=()=>box.innerHTML="🎤 Chưa nghe rõ. Gia Khôi hãy thử đọc lại, chậm và rõ hơn nhé.";
+ try{r.start()}catch(e){box.innerHTML="🎤 Micro đang bận. Chờ một chút rồi thử lại nhé."}
 }
 
 function nextSpeaking(idx,pct){
- if(pct>=75)stars(1,key("speaking_"+idx));
+ if(pct>=80)stars(2,key("speaking80_"+idx));
+ else if(pct>=50)stars(1,key("speaking50_"+idx));
  if(idx>=5){
    sessionStorage.removeItem(key("speak_i"));
    localStorage.setItem(key("speaking_done"),"1");
    stars(3,key("speaking_complete"));
-   document.getElementById("content").innerHTML=`<div class="card reward"><div class="star">🎤⭐</div><h2>Hoàn thành luyện nói!</h2><p>Gia Khôi đã luyện đủ <b>6 lượt nghe – nói</b> của Unit này.</p><p>Hãy luyện lại nhiều lần để nói tự nhiên hơn nhé.</p><button onclick="show('speaking')">🔄 Luyện lại</button></div>`;
+   document.getElementById("content").innerHTML=`<div class="card reward"><div class="star">🎤⭐</div><h2>Hoàn thành luyện nói!</h2><p>Gia Khôi đã hoàn thành 6 lượt nghe – nói của Unit này.</p><button onclick="show('speaking')">🔄 Luyện lại</button></div>`;
  }else{
-   sessionStorage.setItem(key("speak_i"),idx+1);
-   speakingPractice();
+   sessionStorage.setItem(key("speak_i"),idx+1);speakingPractice()
  }
 }
 status();
