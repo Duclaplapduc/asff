@@ -1,5 +1,5 @@
 <!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Laptinh Learning - English 4</title><style>
+<title>Laptinh Learning - English 4 V8.1</title><style>
 *{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f8fd;color:#182033}header{text-align:center;background:white;padding:20px;box-shadow:0 2px 12px #0001}
 header h1{margin:0}.stats{display:inline-block;background:#fff3bf;padding:10px 16px;border-radius:20px}main{max-width:1050px;margin:auto;padding:22px 14px 70px}.hidden{display:none}
 .units{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:13px}.unit,.card{background:white;border-radius:20px;padding:19px;box-shadow:0 6px 20px #17203312}.unit{cursor:pointer}.unit h3{margin:7px 0}.vi{color:#687386}
@@ -18,13 +18,19 @@ button{border:0;border-radius:14px;padding:12px 15px;background:#2864e8;color:wh
 .word{text-align:center}.word .en{font-size:22px;font-weight:bold}.word .emoji{font-size:38px}.big{font-size:27px;font-weight:bold}.answer{display:block;width:100%;text-align:left;margin:7px 0;background:#edf3ff;color:#173a7a}.correct{background:#dcf7e5!important;color:#126533!important}.wrong{background:#ffe0e0!important;color:#8b1b1b!important}
 .note{width:100%;border-collapse:collapse}.note td,.note th{padding:10px;border-bottom:1px solid #e5e8ef;text-align:left}.reward{text-align:center;font-size:20px}.flag{font-size:80px;text-align:center}.overlay{position:fixed;inset:0;background:linear-gradient(145deg,#e7f0ff,#fff5d7);z-index:20;display:flex;align-items:center;justify-content:center;padding:20px}.welcome{max-width:540px;background:white;border-radius:28px;padding:35px 25px;text-align:center;box-shadow:0 18px 60px #0002}.welcome p{font-size:20px;line-height:1.5}.star{font-size:70px}footer{text-align:center;color:#7d8797;padding:20px}
 @media(max-width:600px){.units{grid-template-columns:1fr}.bar h2{font-size:18px}.welcome h1{font-size:28px}}
+
+.orderinput{width:100%;padding:14px 16px;border:2px solid #d9e2f1;border-radius:14px;font-size:18px;margin:12px 0}
+.orderwords{font-size:20px;font-weight:bold;line-height:1.8;background:#f7f9fd;border-radius:15px;padding:14px}
+.orderhint{padding:12px;border-radius:14px;background:#fff5df;line-height:1.6}
+.orderok{padding:12px;border-radius:14px;background:#e9f9ef;font-weight:bold}
 </style></head><body>
 <div id="welcome" class="overlay"><div class="welcome"><div class="star">🌟</div><h1>Chào Gia Khôi!</h1><p id="wish"></p><button onclick="enter()">🚀 Bắt đầu học</button></div></div>
-<header><h1>📚 Laptinh Learning V8</h1><p>Tiếng Anh lớp 4 • Góc học tập của Gia Khôi</p><div class="stats">⭐ Tổng sao: <b id="stars">0</b> &nbsp; | &nbsp; 🏆 Unit hoàn thành: <b id="done">0</b>/10</div></header>
+<header><h1>📚 Laptinh Learning V8.1</h1><p>Tiếng Anh lớp 4 • Góc học tập của Gia Khôi</p><div class="stats">⭐ Tổng sao: <b id="stars">0</b> &nbsp; | &nbsp; 🏆 Unit hoàn thành: <b id="done">0</b>/10</div></header>
 <main><section id="home"><h2>10 Unit</h2><div class="card"><b>🎤 Luyện nói V8:</b> Nghe mẫu → đọc → xem % chính xác → đọc lại nếu muốn → nộp bài. Nếu mở file trực tiếp mà Chrome chặn micro, nên đưa file lên website HTTPS để luyện nói ổn định hơn.</div><br><div class="card"><b>🚀 Mới:</b> Hoàn thành Game cuối bài sẽ mở <b>Luyện nâng cao</b>. Phần nâng cao thưởng <b>⭐ x2</b>.</div><br><div id="units" class="units"></div></section>
 <section id="learn" class="hidden"><div class="bar"><button class="light" onclick="home()">← Trang chủ</button><h2 id="utitle"></h2></div><div id="steps" class="steps"></div><div id="content"></div></section></main>
 <footer>❤️ Ba chúc Gia Khôi chăm ngoan, học tốt và tiến bộ mỗi ngày!</footer><script>
 const DATA=[{"n": 1, "title": "My friends", "vi": "Bạn bè", "goal": "Hỏi và trả lời một người đến từ đâu; nhận biết một số quốc gia.", "words": [["friend", "bạn"], ["from", "đến từ"], ["Vietnam", "Việt Nam"], ["Japan", "Nhật Bản"], ["Australia", "Úc"], ["Britain", "Anh"], ["America", "Mỹ"], ["Malaysia", "Malaysia"]], "q": "Where are you from?", "a": "I'm from Vietnam.", "game": [["🇻🇳", "Vietnam"], ["🇯🇵", "Japan"], ["🇦🇺", "Australia"], ["🇬🇧", "Britain"]]}, {"n": 2, "title": "Time and daily routines", "vi": "Thời gian và hoạt động hằng ngày", "goal": "Nói giờ và một số hoạt động thường ngày.", "words": [["time", "thời gian"], ["get up", "thức dậy"], ["have breakfast", "ăn sáng"], ["go to school", "đi học"], ["have lunch", "ăn trưa"], ["go home", "về nhà"], ["do homework", "làm bài tập"], ["go to bed", "đi ngủ"]], "q": "What time do you get up?", "a": "I get up at six o'clock.", "game": [["🌅", "get up"], ["🥣", "have breakfast"], ["🏫", "go to school"], ["🛏️", "go to bed"]]}, {"n": 3, "title": "My week", "vi": "Tuần của em", "goal": "Nhận biết các ngày trong tuần và nói hoạt động theo ngày.", "words": [["Monday", "thứ Hai"], ["Tuesday", "thứ Ba"], ["Wednesday", "thứ Tư"], ["Thursday", "thứ Năm"], ["Friday", "thứ Sáu"], ["Saturday", "thứ Bảy"], ["Sunday", "Chủ nhật"], ["week", "tuần"]], "q": "What do you do on Sundays?", "a": "I play football on Sundays.", "game": [["1️⃣", "Monday"], ["3️⃣", "Wednesday"], ["6️⃣", "Saturday"], ["7️⃣", "Sunday"]]}, {"n": 4, "title": "My birthday party", "vi": "Tiệc sinh nhật của em", "goal": "Nói về sinh nhật, tháng và một số hoạt động trong tiệc.", "words": [["birthday", "sinh nhật"], ["party", "bữa tiệc"], ["cake", "bánh sinh nhật"], ["present", "quà"], ["month", "tháng"], ["January", "tháng Một"], ["May", "tháng Năm"], ["December", "tháng Mười Hai"]], "q": "When's your birthday?", "a": "It's in May.", "game": [["🎂", "birthday"], ["🎁", "present"], ["🍰", "cake"], ["5️⃣", "May"]]}, {"n": 5, "title": "Things we can do", "vi": "Những việc chúng ta có thể làm", "goal": "Nói về khả năng với can/can't.", "words": [["can", "có thể"], ["can't", "không thể"], ["swim", "bơi"], ["run", "chạy"], ["sing", "hát"], ["dance", "nhảy/múa"], ["draw", "vẽ"], ["ride a bike", "đi xe đạp"]], "q": "Can you swim?", "a": "Yes, I can.", "game": [["🏊", "swim"], ["🏃", "run"], ["🎤", "sing"], ["🚲", "ride a bike"]]}, {"n": 6, "title": "Our school facilities", "vi": "Cơ sở vật chất trường học", "goal": "Gọi tên và nói về một số khu vực, phòng trong trường.", "words": [["school", "trường học"], ["classroom", "phòng học"], ["library", "thư viện"], ["computer room", "phòng máy tính"], ["music room", "phòng âm nhạc"], ["playground", "sân chơi"], ["gym", "nhà thể chất"], ["garden", "vườn"]], "q": "Is there a library at your school?", "a": "Yes, there is.", "game": [["📚", "library"], ["💻", "computer room"], ["🎵", "music room"], ["⚽", "playground"]]}, {"n": 7, "title": "Our timetables", "vi": "Thời khóa biểu của chúng em", "goal": "Nói môn học có vào ngày nào trong thời khóa biểu.", "words": [["timetable", "thời khóa biểu"], ["English", "Tiếng Anh"], ["Maths", "Toán"], ["Vietnamese", "Tiếng Việt"], ["Science", "Khoa học"], ["Art", "Mỹ thuật"], ["Music", "Âm nhạc"], ["PE", "Thể dục"]], "q": "When do you have English?", "a": "I have English on Monday.", "game": [["🔢", "Maths"], ["🎨", "Art"], ["🎵", "Music"], ["🏃", "PE"]]}, {"n": 8, "title": "My favourite subjects", "vi": "Môn học yêu thích của em", "goal": "Nói môn học yêu thích và hỏi lý do đơn giản.", "words": [["favourite", "yêu thích"], ["subject", "môn học"], ["English", "Tiếng Anh"], ["Maths", "Toán"], ["Science", "Khoa học"], ["Art", "Mỹ thuật"], ["Music", "Âm nhạc"], ["interesting", "thú vị"]], "q": "What's your favourite subject?", "a": "My favourite subject is English.", "game": [["🇬🇧", "English"], ["🔢", "Maths"], ["🔬", "Science"], ["🎨", "Art"]]}, {"n": 9, "title": "Our sports day", "vi": "Ngày hội thể thao", "goal": "Nói về hoạt động thể thao và ngày hội thể thao.", "words": [["sports day", "ngày hội thể thao"], ["football", "bóng đá"], ["badminton", "cầu lông"], ["table tennis", "bóng bàn"], ["run", "chạy"], ["jump", "nhảy"], ["play", "chơi"], ["team", "đội"]], "q": "What are you going to do on Sports Day?", "a": "I'm going to play football.", "game": [["⚽", "football"], ["🏸", "badminton"], ["🏓", "table tennis"], ["🏃", "run"]]}, {"n": 10, "title": "Our summer holidays", "vi": "Kỳ nghỉ hè của chúng em", "goal": "Nói về nơi sẽ đến và hoạt động trong kỳ nghỉ hè.", "words": [["summer", "mùa hè"], ["holiday", "kỳ nghỉ"], ["beach", "bãi biển"], ["sea", "biển"], ["mountains", "núi"], ["visit", "thăm"], ["travel", "du lịch"], ["family", "gia đình"]], "q": "Where are you going this summer?", "a": "I'm going to the beach.", "game": [["🏖️", "beach"], ["🌊", "sea"], ["⛰️", "mountains"], ["👨‍👩‍👦", "family"]]}];
+const ORD4={"1":[[["I","am","from","Vietnam."],"I am from Vietnam."],[["Where","are","you","from?"],"Where are you from?"],[["My","friend","is","from","Japan."],"My friend is from Japan."],[["She","is","from","Australia."],"She is from Australia."],[["Are","you","from","Britain?"],"Are you from Britain?"],[["They","are","my","friends."],"They are my friends."]],"2":[[["I","get","up","at","six","o'clock."],"I get up at six o'clock."],[["What","time","do","you","go","to","school?"],"What time do you go to school?"],[["I","have","breakfast","at","seven","o'clock."],"I have breakfast at seven o'clock."],[["We","go","home","in","the","afternoon."],"We go home in the afternoon."],[["I","do","my","homework","after","school."],"I do my homework after school."],[["What","time","do","you","go","to","bed?"],"What time do you go to bed?"]],"3":[[["I","play","football","on","Sundays."],"I play football on Sundays."],[["What","do","you","do","on","Mondays?"],"What do you do on Mondays?"],[["We","have","English","on","Tuesday."],"We have English on Tuesday."],[["She","reads","books","on","Saturday."],"She reads books on Saturday."],[["Today","is","Wednesday."],"Today is Wednesday."],[["I","go","to","school","from","Monday","to","Friday."],"I go to school from Monday to Friday."]],"4":[[["My","birthday","is","in","May."],"My birthday is in May."],[["When","is","your","birthday?"],"When is your birthday?"],[["We","have","a","birthday","party."],"We have a birthday party."],[["This","is","my","birthday","cake."],"This is my birthday cake."],[["I","have","a","present","for","you."],"I have a present for you."],[["Her","birthday","is","in","December."],"Her birthday is in December."]],"5":[[["I","can","swim."],"I can swim."],[["Can","you","ride","a","bike?"],"Can you ride a bike?"],[["Yes,","I","can."],"Yes, I can."],[["No,","I","can't."],"No, I can't."],[["She","can","sing","and","dance."],"She can sing and dance."],[["My","brother","can","draw","very","well."],"My brother can draw very well."]],"6":[[["There","is","a","library","at","my","school."],"There is a library at my school."],[["Is","there","a","computer","room?"],"Is there a computer room?"],[["Our","playground","is","very","big."],"Our playground is very big."],[["We","have","Music","in","the","music","room."],"We have Music in the music room."],[["The","gym","is","next","to","the","library."],"The gym is next to the library."],[["There","are","many","classrooms","at","our","school."],"There are many classrooms at our school."]],"7":[[["I","have","English","on","Monday."],"I have English on Monday."],[["When","do","you","have","Maths?"],"When do you have Maths?"],[["We","have","Science","on","Thursday."],"We have Science on Thursday."],[["My","favourite","subject","is","Art."],"My favourite subject is Art."],[["We","have","PE","on","Friday."],"We have PE on Friday."],[["This","is","my","school","timetable."],"This is my school timetable."]],"8":[[["My","favourite","subject","is","English."],"My favourite subject is English."],[["What","is","your","favourite","subject?"],"What is your favourite subject?"],[["I","like","Science","because","it","is","interesting."],"I like Science because it is interesting."],[["She","likes","Art","very","much."],"She likes Art very much."],[["Why","do","you","like","Music?"],"Why do you like Music?"],[["Maths","is","my","favourite","subject."],"Maths is my favourite subject."]],"9":[[["I","am","going","to","play","football."],"I am going to play football."],[["What","are","you","going","to","do","on","Sports","Day?"],"What are you going to do on Sports Day?"],[["We","are","going","to","play","badminton."],"We are going to play badminton."],[["She","is","going","to","run."],"She is going to run."],[["Our","team","is","very","strong."],"Our team is very strong."],[["They","are","going","to","play","table","tennis."],"They are going to play table tennis."]],"10":[[["I","am","going","to","the","beach","this","summer."],"I am going to the beach this summer."],[["Where","are","you","going","this","summer?"],"Where are you going this summer?"],[["We","are","going","to","visit","our","family."],"We are going to visit our family."],[["My","family","is","going","to","the","mountains."],"My family is going to the mountains."],[["I","want","to","swim","in","the","sea."],"I want to swim in the sea."],[["We","are","going","to","travel","in","July."],"We are going to travel in July."]]};
 const wishes=["Ba chúc con trai Gia Khôi học thật tốt, chăm ngoan và tiến bộ mỗi ngày! ❤️","Ba tin Gia Khôi làm được! Học chắc từng bài rồi mình chơi game nhé! ⭐","Mỗi ngày cố gắng một chút, Gia Khôi sẽ ngày càng giỏi hơn! 💪📚"];
 let U=null, qi=0, qs=0, gi=0, gs=0, ai=0, ascore=0;
 document.getElementById("wish").textContent=wishes[Math.floor(Math.random()*wishes.length)];
@@ -35,7 +41,7 @@ function renderUnits(){document.getElementById("units").innerHTML=DATA.map(u=>`<
 function home(){document.getElementById("home").classList.remove("hidden");document.getElementById("learn").classList.add("hidden");status()}
 function openUnit(n){U=DATA.find(x=>x.n===n);document.getElementById("home").classList.add("hidden");document.getElementById("learn").classList.remove("hidden");document.getElementById("utitle").textContent=`Unit ${U.n} – ${U.title}`;steps();show("goals");scrollTo(0,0)}
 function completed(s){return !!localStorage.getItem(key(s))}
-function steps(){let unlock=completed("quiz"),adv=completed("game_done");document.getElementById("steps").innerHTML=`<button onclick="show('goals')">📌 Cần nắm</button><button onclick="show('notebook')">✍️ Ghi vở</button><button onclick="show('words')">📚 Từ vựng</button><button onclick="show('pattern')">💬 Mẫu câu</button><button onclick="show('practice')">✏️ Luyện tập</button><button class="speakbtn" onclick="show('speaking')">🎤 Luyện nói</button><button onclick="show('quiz')">📝 Quiz</button><button class="${unlock?'game':'locked'}" onclick="${unlock?"show('game')":"lockedGame()"}">${unlock?"🎮 Game cuối bài":"🔒 Game cuối bài"}</button><button class="${adv?'advanced':'locked'}" onclick="${adv?"show('advanced')":"lockedAdvanced()"}">${adv?"🚀 Luyện nâng cao ⭐x2":"🔒 Nâng cao ⭐x2"}</button>`}
+function steps(){let unlock=completed("quiz"),adv=completed("game_done");document.getElementById("steps").innerHTML=`<button onclick="show('goals')">📌 Cần nắm</button><button onclick="show('notebook')">✍️ Ghi vở</button><button onclick="show('words')">📚 Từ vựng</button><button onclick="show('pattern')">💬 Mẫu câu</button><button onclick="show('practice')">✏️ Luyện tập</button><button onclick="show('order')">🔀 Sắp xếp câu / Sentence Ordering</button><button class="speakbtn" onclick="show('speaking')">🎤 Luyện nói</button><button onclick="show('quiz')">📝 Quiz</button><button class="${unlock?'game':'locked'}" onclick="${unlock?"show('game')":"lockedGame()"}">${unlock?"🎮 Game cuối bài":"🔒 Game cuối bài"}</button><button class="${adv?'advanced':'locked'}" onclick="${adv?"show('advanced')":"lockedAdvanced()"}">${adv?"🚀 Luyện nâng cao ⭐x2":"🔒 Nâng cao ⭐x2"}</button>`}
 function lockedGame(){alert("Gia Khôi cần hoàn thành Quiz của Unit này để mở khóa game nhé! 📚⭐")}
 function lockedAdvanced(){alert("Gia Khôi cần hoàn thành Game cuối bài để mở Luyện nâng cao ⭐ x2 nhé! 🚀")}
 function speak(t){if(!speechSynthesis)return; speechSynthesis.cancel();let x=new SpeechSynthesisUtterance(t);x.lang="en-US";x.rate=.8;speechSynthesis.speak(x)}
@@ -45,6 +51,7 @@ if(t==="notebook")c.innerHTML=`<div class="card"><h2>✍️ Ghi vào vở học 
 if(t==="words")c.innerHTML=`<h2>📚 Từ vựng</h2><div class="grid">${U.words.map((w,i)=>`<div class="card word"><div class="emoji">${["📘","⭐","🔤","🌟"][i%4]}</div><div class="en">${w[0]}</div><p class="vi">${w[1]}</p><button onclick="speak('${w[0].replaceAll("'","\\'")}')">🔊 Nghe</button></div>`).join("")}</div><p class="reward"><button onclick="finish('words',1)">✅ Con đã học các từ</button></p>`;
 if(t==="pattern")c.innerHTML=`<div class="card"><h2>💬 Mẫu câu</h2><p class="big">${U.q}</p><button onclick="speak('${U.q.replaceAll("'","\\'")}')">🔊 Nghe câu hỏi</button><p class="big">${U.a}</p><button onclick="speak('${U.a.replaceAll("'","\\'")}')">🔊 Nghe câu trả lời</button><p><button onclick="finish('pattern',1)">✅ Con đã luyện mẫu câu</button></p></div>`;
 if(t==="practice")practice();
+if(t==="order")orderPractice();
 if(t==="speaking")speakingPractice();
 if(t==="quiz"){qi=0;qs=0;quiz()}
 if(t==="game"){if(!completed("quiz"))return lockedGame();gi=0;gs=0;game()}
@@ -75,6 +82,63 @@ function practiceAns(i,a,b,idx){
    else{sessionStorage.setItem(key("practice_i"),idx+1);practice()}
  },600)
 }
+
+function orderPractice(){
+ let arr=ORD4[U.n], i=+(sessionStorage.getItem(key("order_i"))||0);
+ if(i>=arr.length)i=0;
+ function draw(){
+   if(i>=arr.length){
+     sessionStorage.removeItem(key("order_i"));
+     stars(2,key("order"));
+     localStorage.setItem(key("order"),"1");
+     document.getElementById("content").innerHTML=`<div class="card reward"><div class="star">⭐</div><h2>Hoàn thành Sắp xếp câu!</h2><p>Gia Khôi đã viết đúng cả 6 câu.</p><p><b>Sentence Ordering completed!</b></p><button onclick="show('order')">🔄 Làm lại / Try again</button></div>`;
+     steps();return
+   }
+   let q=arr[i], parts=[...q[0]].sort(()=>Math.random()-.5);
+   document.getElementById("content").innerHTML=`<div class="card">
+   <h2>🔀 Sắp xếp câu / Sentence Ordering ${i+1}/6</h2>
+   <p>✍️ Sắp xếp các từ và nhập lại thành một câu hoàn chỉnh.</p>
+   <p><b>Arrange the words and rewrite them as a complete sentence.</b></p>
+   <p>Phải đúng <b>thứ tự từ, chính tả, viết hoa và dấu câu</b> mới được qua câu tiếp theo.</p>
+   <p><b>Word order, spelling, capital letters, and punctuation must all be correct.</b></p>
+   <div class="orderwords">${parts.join(" / ")}</div>
+   <input id="orderInput" class="orderinput" autocomplete="off" placeholder="Nhập câu / Write the sentence">
+   <button onclick="checkOrder4()">✅ Kiểm tra / Check</button>
+   <div id="orderFeedback"></div></div>`;
+   document.getElementById("orderInput").addEventListener("keydown",e=>{if(e.key==="Enter")checkOrder4()});
+   window.checkOrder4=()=>{
+     let box=document.getElementById("orderFeedback"), inp=document.getElementById("orderInput");
+     let val=inp.value.trim().replace(/\s+/g," "), ans=q[1].trim().replace(/\s+/g," ");
+     if(val===ans){
+       box.innerHTML='<div class="orderok">⭐ Chính xác! / Correct!</div>';
+       inp.disabled=true;
+       sessionStorage.setItem(key("order_i"),i+1);
+       setTimeout(()=>{i++;draw()},700);
+       return;
+     }
+     let hints=[];
+     if(!val){hints.push("✍️ Hãy nhập câu trả lời. / Write your answer.");}
+     else{
+       if(ans[0]===ans[0].toUpperCase() && val[0]!==val[0].toUpperCase())
+         hints.push("🔠 Nhớ viết hoa chữ đầu câu. / Start with a capital letter.");
+       let ae=ans.slice(-1), ve=val.slice(-1);
+       if([".","?","!"].includes(ae) && ve!==ae)
+         hints.push(`✒️ Kiểm tra dấu câu cuối câu. / Check the final punctuation (${ae})`);
+       if(val.toLowerCase()===ans.toLowerCase() && val!==ans)
+         hints.push("🔠 Kiểm tra chữ viết hoa. / Check capital letters.");
+       let strip=s=>s.replace(/[.,?!;:]/g,"").toLowerCase().trim();
+       if(strip(val)===strip(ans) && val!==ans)
+         hints.push("✒️ Kiểm tra dấu phẩy hoặc dấu câu. / Check punctuation.");
+       if(!hints.length)
+         hints.push("🔎 Kiểm tra lại thứ tự từ và chính tả. / Check the word order and spelling.");
+     }
+     box.innerHTML=`<div class="orderhint"><b>Chưa đúng, hãy sửa và nhập lại. / Not correct yet. Correct it and try again.</b><br>${hints.join("<br>")}<br><small>💡 Không hiện đáp án. Con phải tự sửa đúng mới được sang câu tiếp theo. / The answer stays hidden until you get it right.</small></div>`;
+     inp.focus();
+   }
+ }
+ draw()
+}
+
 function quiz(){
  let c=document.getElementById("content");
  let questions=[
