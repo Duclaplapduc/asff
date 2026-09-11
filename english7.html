@@ -1,5 +1,5 @@
 <!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Laptinh Learning English 7 - 12 Units FINAL V5.8</title><style>
+<title>Laptinh Learning English 7 - 12 Units FINAL V6.2</title><style>
 *{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f7fc;color:#18243b}header{background:white;text-align:center;padding:17px;box-shadow:0 2px 12px #0001;position:sticky;top:0;z-index:5}
 main{max-width:1150px;margin:auto;padding:20px 14px 70px}.card{background:white;border-radius:20px;padding:18px;margin:13px 0;box-shadow:0 5px 20px #00000010}.units{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}.unit{cursor:pointer}.unit:hover{transform:translateY(-2px)}
 .tabs{display:flex;gap:7px;flex-wrap:wrap}.tabs button{flex:1 1 130px}button{border:0;border-radius:12px;padding:10px 13px;background:#2864e8;color:white;font-weight:bold;cursor:pointer}.alt{background:#7151bd}.green{background:#0b9d70}.orange{background:#d97706}.light{background:#e9eef8;color:#18243b}
@@ -9,7 +9,7 @@ table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px so
 .speedctl{max-width:900px;margin:10px auto;padding:10px 14px;background:#eef5ff;border-radius:14px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
 .speedctl input{width:180px}.speedctl b{min-width:48px}
 </style></head><body>
-<header><h1>📚 Laptinh Learning – English 7</h1><div><b>FINAL V5.8 • 12 Units • Việt–Anh / Vietnamese–English</b></div><div>⭐ Tổng sao: <b id="stars">0</b> &nbsp;|&nbsp; 🏆 Unit hoàn thành: <b id="doneCount">0</b>/12</div></header><div class="speedctl">🎙️ <b>Giọng đọc / Voice</b>
+<header><h1>📚 Laptinh Learning – English 7</h1><div><b>FINAL V6.2 • 12 Units • Việt–Anh / Vietnamese–English</b></div><div>⭐ Tổng sao: <b id="stars">0</b> &nbsp;|&nbsp; 🏆 Unit hoàn thành: <b id="doneCount">0</b>/12</div></header><div class="speedctl">🎙️ <b>Giọng đọc / Voice</b>
 <select id="voiceSelect" onchange="setVoice(this.value)" style="max-width:310px;padding:8px;border-radius:10px"><option>Đang tải giọng English...</option></select>
 <button onclick="testVoice()">▶️ Nghe thử giọng / Test voice</button>
 <span style="flex-basis:100%;height:0"></span>
@@ -98,8 +98,14 @@ function explainAnswer(q,correct){
   return "💡 Đây là câu từ vựng. Hãy đối chiếu từ với nghĩa đã học trong Vocabulary. / Review the word and its meaning in Vocabulary.";
  return "💡 Hãy đọc lại câu, xác định từ khóa và cấu trúc của Unit rồi so sánh với đáp án đúng. / Read the sentence again, find the keyword, and check the unit structure."
 }
+
+function shuffleChoices(q){
+ let correct=q[1][q[2]],opts=[...q[1]];
+ for(let i=opts.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[opts[i],opts[j]]=[opts[j],opts[i]]}
+ return [q[0],opts,opts.indexOf(correct)]
+}
 function runQuiz(title,arr,key){
- qidx=0;qscore=0;let answers=new Array(arr.length).fill(null);
+ arr=arr.map(shuffleChoices);qidx=0;qscore=0;let answers=new Array(arr.length).fill(null);
  function draw(){
   if(qidx>=arr.length){
    let r=qscore/arr.length;if(r>=.5)award(key,2);
@@ -128,13 +134,30 @@ function runQuiz(title,arr,key){
  draw()
 }
 function orderTask(){let arr=ORD[U.n],i=0;function draw(){if(i>=arr.length){award("order",2);content.innerHTML=`<div class="card"><h2>✅ Hoàn thành 6 câu sắp xếp / Sentence Ordering completed!</h2></div>`;return}let q=arr[i],words=[...q[0]].sort(()=>Math.random()-.5);content.innerHTML=`<div class="card"><h2>🔀 Sắp xếp từ / Sentence Ordering ${i+1}/6</h2><p>✍️ <b>Nhập lại thành một câu hoàn chỉnh.</b> Phải đúng <b>thứ tự từ, chính tả, viết hoa và dấu câu</b> mới được qua câu tiếp theo.</p><p class="ipa">🇬🇧 <b>Rewrite the words to make a complete sentence.</b> The word order, spelling, capital letters, and punctuation must be correct before you can move to the next sentence.</p><div class="box big">${words.join(" / ")}</div><input id="oi" autocomplete="off" placeholder="Nhập câu / Write the sentence"><button onclick="checkO()">✅ Kiểm tra / Check</button> ${i>0?`<button class="light" onclick="i--;draw()">⬅️ Quay lại / Previous</button>`:""}<div id="of"></div></div>`;oi.addEventListener("keydown",e=>{if(e.key==="Enter")checkO()});window.checkO=()=>{let val=oi.value.trim().replace(/\s+/g," "),ans=q[1].trim().replace(/\s+/g," ");if(val===ans){of.innerHTML='<p class="ok">⭐ Chính xác! / Correct!</p>';oi.disabled=true;setTimeout(()=>{i++;draw()},750)}else{let h=[];if(!val)h.push("✍️ Hãy nhập câu trả lời. / Write your answer.");else{if(ans[0]===ans[0].toUpperCase()&&val[0]!==val[0].toUpperCase())h.push("🔠 Chữ đầu câu phải viết hoa. / Start with a capital letter.");let ae=ans.slice(-1),ve=val.slice(-1);if([".","?","!"].includes(ae)&&ve!==ae)h.push(`✒️ Kiểm tra dấu câu cuối câu. / Check the final punctuation (${ae})`);if(!h.length)h.push("🔎 Kiểm tra lại thứ tự từ, chính tả và dấu câu. / Check word order, spelling and punctuation.")}of.innerHTML=`<div class="bad" style="padding:10px;border-radius:10px"><b>Chưa đúng – hãy sửa và nhập lại. / Not correct yet – correct it and try again.</b><br>${h.join("<br>")}<br><small>💡 Không hiện đáp án. Chỉ khi đúng hoàn toàn mới sang câu tiếp.</small></div>`;oi.focus()}}}draw()}
-function errorTask(){let es=ERR[U.n],fs=FIX[U.n],arr=[0,1,0,1,0,1],i=0;function draw(){if(i>=arr.length){award("error",2);content.innerHTML='<div class="card"><h2>✅ Hoàn thành tìm lỗi sai</h2></div>';return}let k=arr[i];content.innerHTML=`<div class="card"><h2>🔎 Tìm lỗi sai ${i+1}/6</h2><p class="big">${es[k]}</p><button onclick="revealE()">👀 Kiểm tra lỗi</button><div id="ef"></div></div>`;window.revealE=()=>{ef.innerHTML=`<p class="ok"><b>Sửa:</b> ${fs[k]}</p><button onclick="nextE()">➡️ Câu tiếp / Next</button>`};window.nextE=()=>{i++;draw()}}draw()}
+const ERRORBANK={"1": [["She enjoy making models after school.", "She enjoys making models after school.", "He/She/It + verb-s/es in the present simple."], ["My brother like collecting stamps.", "My brother likes collecting stamps.", "My brother = he, so use likes."], ["Does Lan likes gardening?", "Does Lan like gardening?", "After does, use the base verb."], ["Nam doesn't enjoys reading comics.", "Nam doesn't enjoy reading comics.", "After doesn't, use the base verb."], ["They loves taking photos at weekends.", "They love taking photos at weekends.", "They = plural subject, so use love."], ["I am like playing board games.", "I like playing board games.", "Use like + V-ing; do not use am here."]], "2": [["He should drinks more water.", "He should drink more water.", "After should, use the base verb."], ["My sister don't eat breakfast every day.", "My sister doesn't eat breakfast every day.", "My sister = she, so use doesn't."], ["Eating too much sweets are unhealthy.", "Eating too many sweets is unhealthy.", "Use many with countable sweets; the activity is singular."], ["You should to exercise every day.", "You should exercise every day.", "Should + base verb, without to."], ["Lan have a headache today.", "Lan has a headache today.", "Lan = she, so use has."], ["We shouldn't staying up late.", "We shouldn't stay up late.", "Shouldn't + base verb."]], "3": [["We clean the park last Sunday.", "We cleaned the park last Sunday.", "Last Sunday signals the past simple."], ["Did you planted any trees yesterday?", "Did you plant any trees yesterday?", "After did, use the base verb."], ["She didn't volunteered at the nursing home.", "She didn't volunteer at the nursing home.", "After didn't, use the base verb."], ["They collects books for poor children last week.", "They collected books for poor children last week.", "Use the past simple for last week."], ["I goed to the community centre yesterday.", "I went to the community centre yesterday.", "Go is irregular: go → went."], ["Nam was donate old clothes last month.", "Nam donated old clothes last month.", "Use the past simple verb donated."]], "4": [["This painting is different than that one.", "This painting is different from that one.", "Use different from."], ["Rock music is as exciting than pop music.", "Rock music is as exciting as pop music.", "Use as + adjective + as."], ["Folk music is not as popular than pop music.", "Folk music is not as popular as pop music.", "Use not as ... as."], ["My picture is like beautiful as yours.", "My picture is as beautiful as yours.", "Use as + adjective + as."], ["Photography are different from painting.", "Photography is different from painting.", "Photography is singular."], ["This song is the same from that song.", "This song is the same as that song.", "Use the same as."]], "5": [["We need some apple for the salad.", "We need some apples for the salad.", "Apple is countable here, so use the plural."], ["How many water do you drink every day?", "How much water do you drink every day?", "Water is uncountable, so use how much."], ["How much eggs do we need?", "How many eggs do we need?", "Eggs are countable plural, so use how many."], ["There is lots of carrots in the soup.", "There are lots of carrots in the soup.", "Carrots is plural, so use are."], ["I would like a orange juice.", "I would like some orange juice.", "Orange juice is uncountable in this meaning."], ["We don't have some milk.", "We don't have any milk.", "Use any in most negative sentences."]], "6": [["We meet in school at Monday.", "We meet at school on Monday.", "Use at school and on Monday."], ["The lesson starts on eight o'clock.", "The lesson starts at eight o'clock.", "Use at with clock times."], ["My birthday is on September.", "My birthday is in September.", "Use in with months."], ["The posters are in the wall.", "The posters are on the wall.", "Use on for a surface."], ["She is at the library in Monday morning.", "She is at the library on Monday morning.", "Use on with a named day."], ["Our school year begins on September.", "Our school year begins in September.", "Use in with months."]], "7": [["You should to wear a helmet.", "You should wear a helmet.", "Should + base verb, without to."], ["You shouldn't crosses the road at a red light.", "You shouldn't cross the road at a red light.", "Shouldn't + base verb."], ["How far it is from here to school?", "How far is it from here to school?", "Question order: How far + is it + ...?"], ["It are two kilometres from my house to school.", "It is two kilometres from my house to school.", "Use It is for distance."], ["We should wears seat belts in a car.", "We should wear seat belts in a car.", "Should + base verb."], ["Drivers shouldn't using phones while driving.", "Drivers shouldn't use phones while driving.", "Shouldn't + base verb."]], "8": [["Although the film was long, but I enjoyed it.", "Although the film was long, I enjoyed it.", "Do not use although and but together."], ["The film was boring. Although, I watched it to the end.", "The film was boring. However, I watched it to the end.", "However can introduce a contrasting new sentence."], ["Though it was late, however we stayed.", "Though it was late, we stayed.", "Do not combine though and however in the same structure."], ["The comedy was funny although interesting.", "The comedy was funny and interesting.", "Although introduces contrast, not addition."], ["However the acting was good, I disliked the film.", "Although the acting was good, I disliked the film.", "Use although to introduce the contrast clause here."], ["I liked the story. Although, the ending was weak.", "I liked the story. However, the ending was weak.", "Use However at the start of a contrasting sentence."]], "9": [["Did you enjoyed the festival?", "Did you enjoy the festival?", "After did, use the base verb."], ["Do she wear traditional costumes?", "Does she wear traditional costumes?", "She takes does in present simple questions."], ["Is they watching the parade?", "Are they watching the parade?", "They takes are."], ["Does the festival starts on Saturday?", "Does the festival start on Saturday?", "After does, use the base verb."], ["Did they watched the fireworks?", "Did they watch the fireworks?", "After did, use the base verb."], ["Are the parade exciting?", "Is the parade exciting?", "Parade is singular, so use is."]], "10": [["We is saving energy at school now.", "We are saving energy at school now.", "We takes are in the present continuous."], ["She turning off the lights now.", "She is turning off the lights now.", "Present continuous: is + V-ing."], ["Are they use solar energy now?", "Are they using solar energy now?", "Present continuous: are + V-ing."], ["Scientists is developing new energy sources.", "Scientists are developing new energy sources.", "Scientists is plural, so use are."], ["I am not waste electricity now.", "I am not wasting electricity now.", "Present continuous: am + V-ing."], ["What are you do to save energy?", "What are you doing to save energy?", "Present continuous question: are + subject + V-ing."]], "11": [["We will travels by electric cars.", "We will travel by electric cars.", "Will + base verb."], ["This bicycle is my.", "This bicycle is mine.", "Use the possessive pronoun mine without a noun after it."], ["They won't uses petrol cars.", "They won't use petrol cars.", "Won't + base verb."], ["Will driverless cars are popular?", "Will driverless cars be popular?", "After will, use be."], ["Their car is electric, but our is solar-powered.", "Their car is electric, but ours is solar-powered.", "Use the possessive pronoun ours."], ["How people will travel in 2050?", "How will people travel in 2050?", "Question order: How + will + subject + verb."]], "12": [["Canberra is a capital of Australia.", "Canberra is the capital of Australia.", "Use the for a country's unique capital."], ["Australia is an English-speaking country in Pacific Ocean.", "Australia is an English-speaking country in the Pacific Ocean.", "Use the with ocean names."], ["The New Zealand is near Australia.", "New Zealand is near Australia.", "Do not normally use the before New Zealand."], ["She visited a United Kingdom last year.", "She visited the United Kingdom last year.", "Use the with the United Kingdom."], ["Mount Everest is in an Himalayas.", "Mount Everest is in the Himalayas.", "Use the with mountain ranges."], ["He lives in a Australia.", "He lives in Australia.", "Do not use a before country names like Australia."]]};
+function errorTask(){
+ let arr=ERRORBANK[String(U.n)]||ERRORBANK[U.n],i=0;
+ function draw(){
+  if(i>=arr.length){award("error",2);content.innerHTML='<div class="card"><h2>✅ Hoàn thành Tìm lỗi sai / Find the Mistake</h2><button onclick="errorTask()">🔄 Làm lại / Try again</button></div>';return}
+  let q=arr[i];
+  content.innerHTML=`<div class="card"><h2>🔎 Tìm lỗi sai / Find the Mistake ${i+1}/${arr.length}</h2>
+  <p>🇻🇳 Hãy tìm lỗi trong câu dưới đây rồi tự nghĩ cách sửa trước khi kiểm tra.<br>🇬🇧 Find the mistake and think of the correction before checking.</p>
+  <p class="big"><b>${q[0]}</b></p>
+  <button onclick="revealE()">💡 Kiểm tra & gợi ý / Check</button>
+  ${i>0?` <button class="light" onclick="i--;draw()">⬅️ Quay lại / Previous</button>`:""}
+  <div id="ef"></div></div>`;
+  window.revealE=()=>{document.getElementById("ef").innerHTML=`<div class="box"><p class="ok"><b>✅ Câu đúng / Correct:</b> ${q[1]}</p><p><b>💡 Giải thích / Hint:</b> ${q[2]}</p></div><button onclick="nextE()">Câu tiếp / Next ➡️</button>`};
+  window.nextE=()=>{i++;draw()}
+ }
+ draw()
+}
 function comm(){let q=U.q,a=U.a;content.innerHTML=`<div class="card"><h2>💬 Giao tiếp / Communication – ${U.comm}</h2><div class="box"><p><b>A:</b> ${q}</p><p><b>B:</b> ${a}</p></div><button onclick="say('${esc(q)}')">🔊 A bình thường</button> <button onclick="say('${esc(q)}',true)">🐢 A chậm</button> <button onclick="say('${esc(a)}')">🔊 B bình thường</button> <button onclick="say('${esc(a)}',true)">🐢 B chậm</button><h3>Luyện phản xạ</h3><p>Nghe câu A, dừng lại và tự trả lời trước khi bấm nghe B.</p><button onclick="award('comm',2)">✅ Hoàn thành giao tiếp</button></div>`}
 function reading(){readTry=+(localStorage.getItem(K("readtry"))||0);content.innerHTML=`<div class="card"><h2>📖 Đọc / Reading</h2><p>${U.read}</p><p><b>Cách làm / How to do it:</b> đọc câu hỏi → tìm từ khóa → tìm thông tin trong bài → loại đáp án sai.</p><p>Lần chưa đạt: <b>${readTry}/5</b></p><button onclick="startRead()">▶️ Làm đọc hiểu</button>${readTry>=5?` <button class="orange" onclick="passRead()">➡️ Qua bài</button>`:""}</div>`}
-function startRead(){let s=U.read.split(". ").filter(Boolean),arr=[[`Bài đọc nói chủ yếu về chủ đề nào?`,[U.title,"Mathematics","Weather"],0],[`Thông tin nào phù hợp nhất với bài đọc?`,[s[Math.min(1,s.length-1)]+".","The text is about a different school subject.","There is no useful information."],0],[`Chọn nhận xét đúng.`,["The passage gives details related to the unit topic.","The passage is a shopping list.","The passage is only a greeting."],0],[`Khi làm bài đọc, bước nào nên làm trước?`,["Read the question and find keywords.","Guess every answer.","Skip the passage."],0],[`Bài đọc có giúp luyện từ vựng Unit ${U.n} không?`,["Yes.","No.","Never."],0],[`Ý chính nên được chọn dựa vào đâu?`,["Information repeated or developed in the passage.","The longest answer.","A random word."],0]];qidx=0;qscore=0;function d(){if(qidx>=arr.length){if(qscore>=3){localStorage.removeItem(K("readtry"));award("reading",2);content.innerHTML=`<div class="card"><h2>✅ Reading đạt ${qscore}/6</h2><button onclick="show('listening')">➡️ Listening</button></div>`}else{readTry++;localStorage.setItem(K("readtry"),readTry);content.innerHTML=`<div class="card"><h2>📖 Chưa đạt ${qscore}/6</h2><p>Đã thử ${readTry}/5 lần.</p>${readTry>=5?`<button class="orange" onclick="passRead()">➡️ Qua bài sau 5 lần</button>`:`<button onclick="reading()">🔄 Xem lại và làm lại</button>`}</div>`}return}let q=arr[qidx];content.innerHTML=`<div class="card"><h2>📖 Đọc / Reading ${qidx+1}/6</h2><div class="box">${U.read}</div><h3>${q[0]}</h3>${q[1].map((a,i)=>`<button class="ans" onclick="rp(${i},${q[2]})">${a}</button>`).join("")}</div>`}window.rp=(x,a)=>{let bs=document.querySelectorAll(".ans");bs.forEach(z=>z.disabled=true);if(x===a){qscore++;bs[x].classList.add("ok")}else{bs[x].classList.add("bad");bs[a].classList.add("ok")}setTimeout(()=>{qidx++;d()},500)};d()}
+function startRead(){let s=U.read.split(". ").filter(Boolean),arr=[[`Bài đọc nói chủ yếu về chủ đề nào?`,[U.title,"Mathematics","Weather"],0],[`Thông tin nào phù hợp nhất với bài đọc?`,[s[Math.min(1,s.length-1)]+".","The text is about a different school subject.","There is no useful information."],0],[`Chọn nhận xét đúng.`,["The passage gives details related to the unit topic.","The passage is a shopping list.","The passage is only a greeting."],0],[`Khi làm bài đọc, bước nào nên làm trước?`,["Read the question and find keywords.","Guess every answer.","Skip the passage."],0],[`Bài đọc có giúp luyện từ vựng Unit ${U.n} không?`,["Yes.","No.","Never."],0],[`Ý chính nên được chọn dựa vào đâu?`,["Information repeated or developed in the passage.","The longest answer.","A random word."],0]];arr=arr.map(shuffleChoices);qidx=0;qscore=0;function d(){if(qidx>=arr.length){if(qscore>=3){localStorage.removeItem(K("readtry"));award("reading",2);content.innerHTML=`<div class="card"><h2>✅ Reading đạt ${qscore}/6</h2><button onclick="show('listening')">➡️ Listening</button></div>`}else{readTry++;localStorage.setItem(K("readtry"),readTry);content.innerHTML=`<div class="card"><h2>📖 Chưa đạt ${qscore}/6</h2><p>Đã thử ${readTry}/5 lần.</p>${readTry>=5?`<button class="orange" onclick="passRead()">➡️ Qua bài sau 5 lần</button>`:`<button onclick="reading()">🔄 Xem lại và làm lại</button>`}</div>`}return}let q=arr[qidx];content.innerHTML=`<div class="card"><h2>📖 Đọc / Reading ${qidx+1}/6</h2><div class="box">${U.read}</div><h3>${q[0]}</h3>${q[1].map((a,i)=>`<button class="ans" onclick="rp(${i},${q[2]})">${a}</button>`).join("")}</div>`}window.rp=(x,a)=>{let bs=document.querySelectorAll(".ans");bs.forEach(z=>z.disabled=true);if(x===a){qscore++;bs[x].classList.add("ok")}else{bs[x].classList.add("bad");bs[a].classList.add("ok")}setTimeout(()=>{qidx++;d()},500)};d()}
 function passRead(){award("reading",0);content.innerHTML='<div class="card"><h2>➡️ Đã cho phép qua Reading</h2><p>Đủ 5 lần cố gắng. Không cộng sao thưởng cho phần này.</p><button onclick="show(`listening`)">🎧 Sang Listening</button></div>'}
 function listening(){
  let arr=[[`Bài nghe thuộc chủ đề nào?`,[U.title,"Weather","Shopping"],0],[`Bài nghe có cung cấp thông tin chi tiết không?`,["Yes","No","Not at all"],0],[`Nên làm gì khi chưa nghe rõ?`,["Nghe lại và tập trung từ khóa","Chọn ngẫu nhiên","Bỏ luôn"],0],[`Khi nghe, nên đọc đáp án lúc nào?`,["Trước khi nghe","Sau khi đóng bài","Không cần đọc"],0],[`Mục tiêu nghe lần đầu là gì?`,["Nắm ý chính","Ghi từng chữ","Dịch mọi từ"],0]];
+ arr=arr.map(shuffleChoices);
  qidx=0;qscore=0;let answers=new Array(arr.length).fill(null);
  function d(){
   if(qidx>=arr.length){
@@ -160,13 +183,98 @@ function listening(){
  d()
 }
 function writing(){content.innerHTML=`<div class="card"><h2>✍️ Viết / Writing</h2><p><b>Đề:</b> ${U.write}</p><p><b>Cách làm / How to do it:</b> ① lập 4–5 ý → ② viết câu đơn rõ nghĩa → ③ dùng cấu trúc Unit → ④ nối ý → ⑤ kiểm tra động từ/chính tả.</p><textarea id="wr" rows="9" placeholder="Write here..."></textarea><p id="wc">0 words</p><button onclick="checkW()">✅ Kiểm tra độ dài</button><div id="wf"></div></div>`;wr.oninput=()=>wc.textContent=(wr.value.trim()?wr.value.trim().split(/\s+/).length:0)+" words";window.checkW=()=>{let n=wr.value.trim()?wr.value.trim().split(/\s+/).length:0;if(n<45)wf.innerHTML='<p class="bad">Bài còn ngắn. Hãy bổ sung ý và ví dụ.</p>';else{wf.innerHTML='<p class="ok">Độ dài phù hợp để luyện. Hãy đọc lại cấu trúc và lỗi chính tả.</p>';award("writing",2)}}}
-function speaking(){let t=U.speak?.[0]||U.a;content.innerHTML=`<div class="card"><h2>🎤 Nói / Speaking</h2><p class="big">${t}</p><button onclick="say('${esc(t)}')">🔊 Bình thường / Normal</button> <button onclick="say('${esc(t)}',true)">🐢 Chậm / Slow</button> <button class="green" onclick="speechCheck('${esc(t)}')">🎤 Bắt đầu đọc</button><div id="sf" class="speech">Nghe mẫu, bắt chước trọng âm và ngữ điệu.</div></div>`}
-function speechCheck(t){let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){sf.innerHTML="Trình duyệt chưa hỗ trợ nhận diện giọng nói.";return}let r=new SR();r.lang="en-GB";r.onresult=e=>{let a=norm(e.results[0][0].transcript),b=norm(t),aa=a.split(" "),bb=b.split(" "),used=new Array(aa.length).fill(false),hit=0;for(let w of bb){let j=aa.findIndex((x,k)=>!used[k]&&x===w);if(j>=0){used[j]=1;hit++}}let p=Math.round(hit/bb.length*100);sf.innerHTML=`<div class="score">🎯 ${p}%</div><p>Hệ thống nghe: <b>${e.results[0][0].transcript}</b></p><p>${p>=80?"⭐ Rất tốt!":p>=50?"💪 Con cố gắng nghe kĩ và đọc chính xác hơn.":"🔄 Dưới 50%, nghe mẫu và đọc lại."}</p><button onclick="say('${esc(t)}')">🔊 Nghe lại</button> <button onclick="speechCheck('${esc(t)}')">🎤 Đọc lại</button> ${p>=50?`<button onclick="award('speaking',2);sf.innerHTML+='<p>✅ Đã nộp</p>'">✅ Nộp</button>`:""}`};r.start()}
+let speakIndex=0,speakPassed=[],speakTries=[];
+function speaking(){
+ let arr=(U.speak&&U.speak.length)?U.speak:[U.a];
+ if(speakIndex>=arr.length)speakIndex=0;
+ if(!Array.isArray(speakPassed)||speakPassed.length!==arr.length)speakPassed=new Array(arr.length).fill(false);if(!Array.isArray(speakTries)||speakTries.length!==arr.length)speakTries=new Array(arr.length).fill(0);
+ renderSpeaking()
+}
+function renderSpeaking(){
+ let arr=(U.speak&&U.speak.length)?U.speak:[U.a],t=arr[speakIndex];
+ content.innerHTML=`<div class="card"><h2>🎤 Nói / Speaking ${speakIndex+1}/${arr.length}</h2>
+ <p>🇻🇳 Nghe mẫu rồi đọc lại câu. Đạt từ 50% mới được sang câu tiếp theo.<br>🇬🇧 Listen, repeat, and score at least 50% to continue.</p>
+ <p class="big">${t}</p>
+ <button onclick="say('${esc(t)}')">🔊 Bình thường / Normal</button>
+ <button onclick="say('${esc(t)}',true)">🐢 Chậm / Slow</button>
+ <button class="green" onclick="speechCheck('${esc(t)}')">🎤 Bắt đầu đọc / Speak</button>
+ ${speakIndex>0?`<button class="light" onclick="prevSpeaking()">⬅️ Quay lại / Previous</button>`:""}
+ <div id="sf" class="speech">${speakPassed[speakIndex]?"✅ Câu này đã đạt. Có thể đọc lại để cải thiện điểm.":`Nghe mẫu, bắt chước trọng âm và ngữ điệu.<br>Đã thử / Attempts: <b>${speakTries[speakIndex]}/5</b>`}</div>
+ </div>`
+}
+function speechCheck(t){
+ let SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ let box=document.getElementById("sf");
+ if(!SR){box.innerHTML="Trình duyệt chưa hỗ trợ nhận diện giọng nói.";return}
+ box.innerHTML="🎤 Đang nghe... / Listening...";
+ let r=new SR();r.lang="en-GB";r.interimResults=false;r.maxAlternatives=1;
+ r.onresult=e=>{
+   let heard=e.results[0][0].transcript;
+   let a=norm(heard),b=norm(t),aa=a.split(" "),bb=b.split(" "),used=new Array(aa.length).fill(false),hit=0;
+   for(let w of bb){let j=aa.findIndex((x,k)=>!used[k]&&x===w);if(j>=0){used[j]=1;hit++}}
+   let p=Math.round(hit/bb.length*100);
+   if(p>=50)speakPassed[speakIndex]=true;
+   else speakTries[speakIndex]++;
+   let arr=(U.speak&&U.speak.length)?U.speak:[U.a];
+   let msg=p>=80?"⭐ Rất tốt! Phát âm khá chính xác.":p>=50?"💪 Con cố gắng nghe kĩ và đọc chính xác hơn.":"🔄 Dưới 50%, nghe mẫu và đọc lại.";
+   let nav=p>=50?(speakIndex<arr.length-1
+      ?`<button onclick="nextSpeaking()">Câu tiếp / Next ➡️</button>`
+      :`<button onclick="finishSpeaking()">✅ Hoàn thành / Finish</button>`)
+      :(speakTries[speakIndex]>=5
+        ?`<button class="orange" onclick="skipSpeaking()">➡️ Qua câu sau / Skip after 5 tries</button>`
+        :"");
+   box.innerHTML=`<div class="score">🎯 ${p}%</div>
+   <p>Hệ thống nghe / Heard: <b>${heard}</b></p><p>${msg}</p>
+   <p>Đã thử / Attempts: <b>${speakTries[speakIndex]}/5</b></p>
+   <button onclick="say('${esc(t)}')">🔊 Nghe lại / Listen again</button>
+   <button onclick="speechCheck('${esc(t)}')">🎤 Đọc lại / Try again</button> ${nav}`
+ };
+ r.onerror=e=>{
+   let m=e.error==="no-speech"?"Chưa nghe thấy giọng nói. Hãy thử lại. / No speech detected. Try again.":"Không nhận diện được giọng nói. Hãy thử lại. / Speech recognition error. Try again.";
+   box.innerHTML=`<p class="bad">${m}</p><button onclick="speechCheck('${esc(t)}')">🎤 Thử lại / Try again</button>`
+ };
+ try{r.start()}catch(e){box.innerHTML=`<p class="bad">Không thể bắt đầu micro. Hãy thử lại.</p>`}
+}
+function nextSpeaking(){
+ let arr=(U.speak&&U.speak.length)?U.speak:[U.a];
+ if(!speakPassed[speakIndex] && !(fromSkip&&speakTries[speakIndex]>=5))return;
+ if(speakIndex<arr.length-1){speakIndex++;renderSpeaking()}
+}
+function prevSpeaking(){if(speakIndex>0){speakIndex--;renderSpeaking()}}
+function skipSpeaking(){
+ let arr=(U.speak&&U.speak.length)?U.speak:[U.a];
+ if(speakTries[speakIndex]<5||speakPassed[speakIndex])return;
+ speakPassed[speakIndex]="skipped";
+ if(speakIndex<arr.length-1){speakIndex++;renderSpeaking()}
+ else finishSpeaking(true)
+}
+function finishSpeaking(fromSkip=false){
+ let arr=(U.speak&&U.speak.length)?U.speak:[U.a];
+ if(!speakPassed[speakIndex])return;
+ if(speakPassed.every(Boolean)){
+   award("speaking",2);
+   content.innerHTML=`<div class="card"><h2>✅ Hoàn thành Speaking</h2>
+   <p>Gia Khang đã đi hết ${arr.length}/${arr.length} câu nói. Câu đạt từ 50% được tính hoàn thành; câu không đạt sau 5 lần được phép bỏ qua để không bị dừng bài.</p>
+   <button onclick="speakIndex=0;speakPassed=new Array(${arr.length}).fill(false);speakTries=new Array(${arr.length}).fill(0);speaking()">🔄 Luyện lại / Practise again</button></div>`
+ }
+}
 function lookingBack(){
  runQuiz("🔁 Ôn tập / Looking Back – 14 câu",REVIEW[U.n],"back")
 }
+
+function shuffledTestQuestion(q,unitArr){
+ let correct=q[1][q[2]],opts=[...q[1]];
+ let pool=[];
+ unitArr.forEach(z=>z[1].forEach(x=>{if(x!==correct&&!opts.includes(x))pool.push(x)}));
+ while(opts.length<4&&pool.length){let k=Math.floor(Math.random()*pool.length);opts.push(pool.splice(k,1)[0])}
+ let fallback=["None of these","Not given","Both A and B","Another answer"];
+ for(let x of fallback){if(opts.length>=4)break;if(!opts.includes(x))opts.push(x)}
+ opts=opts.slice(0,4);
+ for(let i=opts.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[opts[i],opts[j]]=[opts[j],opts[i]]}
+ return [q[0],opts,opts.indexOf(correct)]
+}
 function unitTest(){
- qidx=0;qscore=0;let arr=TESTBANK[U.n],answers=new Array(arr.length).fill(null);
+ qidx=0;qscore=0;let source=TESTBANK[U.n],arr=source.map(q=>shuffledTestQuestion(q,source)),answers=new Array(arr.length).fill(null);
  function draw(){
   if(qidx>=arr.length){
    let r=qscore/arr.length;if(r>=.5)award("test",3);
