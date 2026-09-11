@@ -1,5 +1,5 @@
 <!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Laptinh Learning - English 4 – Gia Khôi V10.4 Complete Sentences Fix</title><style>
+<title>Laptinh Learning - English 4 – Gia Khôi V10.5 Complete Sentences Click Fix</title><style>
 *{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f8fd;color:#182033}header{text-align:center;background:white;padding:20px;box-shadow:0 2px 12px #0001}
 header h1{margin:0}.stats{display:inline-block;background:#fff3bf;padding:10px 16px;border-radius:20px}main{max-width:1050px;margin:auto;padding:22px 14px 70px}.hidden{display:none}
 .units{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:13px}.unit,.card{background:white;border-radius:20px;padding:19px;box-shadow:0 6px 20px #17203312}.unit{cursor:pointer}.unit h3{margin:7px 0}.vi{color:#687386}
@@ -82,7 +82,7 @@ button{border:0;border-radius:14px;padding:12px 15px;background:#2864e8;color:wh
 
 </style></head><body>
 <div id="welcome" class="overlay"><div class="welcome"><div class="star">🌟</div><h1>Chào Gia Khôi!</h1><p id="wish"></p><button onclick="enter()">🚀 Bắt đầu học</button></div></div>
-<header><h1>📚 Laptinh Learning V10.4</h1><p>Tiếng Anh lớp 4 • Góc học tập của Gia Khôi</p><div class="stats">⭐ Tổng sao: <b id="stars">0</b> &nbsp; | &nbsp; 🏆 Unit hoàn thành: <b id="done">0</b>/10</div></header>
+<header><h1>📚 Laptinh Learning V10.5</h1><p>Tiếng Anh lớp 4 • Góc học tập của Gia Khôi</p><div class="stats">⭐ Tổng sao: <b id="stars">0</b> &nbsp; | &nbsp; 🏆 Unit hoàn thành: <b id="done">0</b>/10</div></header>
 <main><section id="home"><h2>10 Unit</h2><div class="card"><b>🎤 Luyện nói V8:</b> Nghe mẫu → đọc → xem % chính xác → đọc lại nếu muốn → nộp bài. Nếu mở file trực tiếp mà Chrome chặn micro, nên đưa file lên website HTTPS để luyện nói ổn định hơn.</div><br><div class="card"><b>🚀 Mới:</b> Hoàn thành Game cuối bài sẽ mở <b>Luyện nâng cao</b>. Phần nâng cao thưởng <b>⭐ x2</b>.</div><br><div id="units" class="units"></div></section>
 <section id="learn" class="hidden"><div class="bar"><button class="light" onclick="home()">← Trang chủ</button><h2 id="utitle"></h2></div><div id="steps" class="steps"></div><div id="content"></div></section></main>
 <footer>❤️ Ba chúc Gia Khôi chăm ngoan, học tốt và tiến bộ mỗi ngày!</footer><script>
@@ -101,7 +101,7 @@ let COMPLETE_STATE={};
 function completeSentences4(){
   const arr=COMPLETE4[U.n]||[];
   let st=COMPLETE_STATE[U.n];
-  if(!st||st.done) st=COMPLETE_STATE[U.n]={i:0,tries:0,score:0,done:false,review:[]};
+  if(!st||st.done) st=COMPLETE_STATE[U.n]={i:0,tries:0,score:0,done:false,review:[],locked:false};
   renderComplete4();
 }
 function renderComplete4(){
@@ -117,18 +117,23 @@ function renderComplete4(){
   c.innerHTML=`<h2>🧩 Hoàn thành câu <span class="en2">/ Complete the sentences</span></h2>
   <p class="muted">Câu ${st.i+1}/${arr.length} • Chọn một từ bên dưới để điền vào ô trống.</p>
   <div class="card" style="font-size:22px;line-height:1.7"><b>${x[0].replace("___",'<span id="blank4" style="display:inline-block;min-width:90px;border-bottom:3px solid #2563eb;text-align:center;color:#2563eb">_____</span>')}</b></div>
-  <div id="bank4" style="display:flex;gap:10px;flex-wrap:wrap;margin:16px 0">${bank.map(w=>`<button onclick="chooseComplete4(${JSON.stringify(w)})">${w}</button>`).join("")}</div>
+  <div id="bank4" style="display:flex;gap:10px;flex-wrap:wrap;margin:16px 0">${bank.map((w,i)=>`<button type="button" class="completeChoice4" data-i="${i}">${w}</button>`).join("")}</div>
   <div style="display:flex;gap:8px;flex-wrap:wrap">
     <button onclick="hintComplete4(1)">💡 Gợi ý 1</button>
     <button onclick="hintComplete4(2)">💡 Gợi ý 2</button>
     <button onclick="listenComplete4()">🔊 Nghe câu</button>
     ${st.tries>=3?'<button onclick="showCompleteAnswer4()">👀 Xem đáp án</button>':''}
   </div><div id="completeMsg4" style="margin-top:12px"></div>`;
+  document.querySelectorAll(".completeChoice4").forEach(btn=>{
+    btn.addEventListener("click",()=>chooseComplete4(bank[Number(btn.dataset.i)]));
+  });
 }
 function chooseComplete4(w){
   const st=COMPLETE_STATE[U.n], x=COMPLETE4[U.n][st.i], msg=document.getElementById("completeMsg4");
+  if(st.locked) return;
   document.getElementById("blank4").textContent=w;
   if(w===x[1]){
+    st.locked=true;
     st.score++; st.review.push([x[0],w,x[1],true]);
     msg.innerHTML='<div class="goodmsg">✅ Chính xác! Giỏi lắm.</div><button onclick="nextComplete4()">Câu tiếp ➜</button>';
   }else{
@@ -153,7 +158,7 @@ function showCompleteAnswer4(){
 }
 function nextComplete4(){
  const c=document.getElementById("content");
- const st=COMPLETE_STATE[U.n]; st.i++; st.tries=0;
+ const st=COMPLETE_STATE[U.n]; st.i++; st.tries=0; st.locked=false;
  if(st.i>=COMPLETE4[U.n].length){
    st.done=true; finish('complete4',2);
    c.innerHTML=`<h2>🎉 Hoàn thành Complete the sentences</h2><p class="reward">Con làm đúng ${st.score}/${COMPLETE4[U.n].length} câu trước khi xem đáp án.</p>
