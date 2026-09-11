@@ -1,5 +1,5 @@
 <!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Laptinh Learning - English 4 – Gia Khôi V10.6 Adventure Expanded</title><style>
+<title>Laptinh Learning - English 4 – Gia Khôi V10.7 Random Game Modes</title><style>
 *{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f8fd;color:#182033}header{text-align:center;background:white;padding:20px;box-shadow:0 2px 12px #0001}
 header h1{margin:0}.stats{display:inline-block;background:#fff3bf;padding:10px 16px;border-radius:20px}main{max-width:1050px;margin:auto;padding:22px 14px 70px}.hidden{display:none}
 .units{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:13px}.unit,.card{background:white;border-radius:20px;padding:19px;box-shadow:0 6px 20px #17203312}.unit{cursor:pointer}.unit h3{margin:7px 0}.vi{color:#687386}
@@ -82,7 +82,7 @@ button{border:0;border-radius:14px;padding:12px 15px;background:#2864e8;color:wh
 
 </style></head><body>
 <div id="welcome" class="overlay"><div class="welcome"><div class="star">🌟</div><h1>Chào Gia Khôi!</h1><p id="wish"></p><button onclick="enter()">🚀 Bắt đầu học</button></div></div>
-<header><h1>📚 Laptinh Learning V10.6</h1><p>Tiếng Anh lớp 4 • Góc học tập của Gia Khôi</p><div class="stats">⭐ Tổng sao: <b id="stars">0</b> &nbsp; | &nbsp; 🏆 Unit hoàn thành: <b id="done">0</b>/10</div></header>
+<header><h1>📚 Laptinh Learning V10.7</h1><p>Tiếng Anh lớp 4 • Góc học tập của Gia Khôi</p><div class="stats">⭐ Tổng sao: <b id="stars">0</b> &nbsp; | &nbsp; 🏆 Unit hoàn thành: <b id="done">0</b>/10</div></header>
 <main><section id="home"><h2>10 Unit</h2><div class="card"><b>🎤 Luyện nói V8:</b> Nghe mẫu → đọc → xem % chính xác → đọc lại nếu muốn → nộp bài. Nếu mở file trực tiếp mà Chrome chặn micro, nên đưa file lên website HTTPS để luyện nói ổn định hơn.</div><br><div class="card"><b>🚀 Mới:</b> Hoàn thành Game cuối bài sẽ mở <b>Luyện nâng cao</b>. Phần nâng cao thưởng <b>⭐ x2</b>.</div><br><div id="units" class="units"></div></section>
 <section id="learn" class="hidden"><div class="bar"><button class="light" onclick="home()">← Trang chủ</button><h2 id="utitle"></h2></div><div id="steps" class="steps"></div><div id="content"></div></section></main>
 <footer>❤️ Ba chúc Gia Khôi chăm ngoan, học tốt và tiến bộ mỗi ngày!</footer><script>
@@ -577,9 +577,31 @@ const ADV_THEME4=[
  ["#d9f7d6","#64aa58","☁️","🌳"],["#fff0b8","#78b35c","🌞","🌻"],
  ["#cfe5ff","#5da75c","🪁","☁️"],["#ffd4c4","#71ad61","🌈","✨"]
 ];
+const ADV_MODES4=[
+ {id:"run",icon:"🏃",name:"Chạy bộ Adventure",speed:4.9,jump:12.5,tip:"Chạy, nhảy qua chướng ngại và gom thật nhiều xu."},
+ {id:"car",icon:"🚗",name:"Lái ô tô",speed:7.0,jump:9.7,tip:"Lái xe thật xa, vượt chướng ngại và thu hoạch xu."},
+ {id:"bike",icon:"🏍️",name:"Đua xe máy",speed:8.0,jump:11.2,tip:"Xe máy nhanh hơn — chú ý chướng ngại và các hộp quà."},
+ {id:"snake",icon:"🐍",name:"Rắn săn mồi",speed:5.6,jump:10.4,tip:"Đi săn xu và thức ăn, mở đủ hộp rồi mới được về đích."}
+];
+function pickAdventureMode4(){
+ let pool=ADV_MODES4.filter(x=>x.id!==window._lastAdvMode4);
+ if(!pool.length)pool=ADV_MODES4;
+ const m=pool[Math.floor(Math.random()*pool.length)];
+ window._lastAdvMode4=m.id; return m;
+}
+function pickAdventureTheme4(){
+ let ids=ADV_THEME4.map((_,i)=>i).filter(i=>i!==window._lastAdvTheme4);
+ if(!ids.length)ids=ADV_THEME4.map((_,i)=>i);
+ const i=ids[Math.floor(Math.random()*ids.length)];
+ window._lastAdvTheme4=i; return ADV_THEME4[i];
+}
 
 function adventureGame4(){
  if(adventureAnim){cancelAnimationFrame(adventureAnim);adventureAnim=null}
+ if(window.advKeyDown)document.removeEventListener("keydown",window.advKeyDown);
+ if(window.advKeyUp)document.removeEventListener("keyup",window.advKeyUp);
+ const mode=pickAdventureMode4();
+ const theme=pickAdventureTheme4();
  const source=(ADV_Q4[U.n]||[]).map(q=>[q[0],[...q[1]],q[2]]);
  const selected=[...source].sort(()=>Math.random()-.5).slice(0,8);
  let quiz=selected.map(q=>{
@@ -588,15 +610,15 @@ function adventureGame4(){
  });
  const vocab=[...U.words].sort(()=>Math.random()-.5);
  document.getElementById("content").innerHTML=`<div class="card">
- <h2>🏃 English Adventure – Unit ${U.n}</h2>
+ <h2>${mode.icon} ${mode.name} – Unit ${U.n}</h2>
+ <p><b>🎲 Chế độ được chọn ngẫu nhiên:</b> ${mode.name}. ${mode.tip}</p>
  <p>Màn chơi dài: đi thật xa, thu hoạch thật nhiều xu, mở <b>8 hộp câu hỏi ❓</b>, <b>1 Rương Từ Vựng ⭐</b> và <b>1 Hộp Xu Bí Ẩn 🎁</b>. Hộp xu cho ngẫu nhiên <b>10–300 xu</b>. Phải mở đủ tất cả hộp mới được về đích.</p>
- <div class="adventureHud"><span>❓ Đúng: <b id="advDone">0/8</b></span><span>⭐ Rương từ: <b id="advTreasure">0/1</b></span><span>🎁 Hộp xu: <b id="advMystery">0/1</b></span><span>🪙 Xu: <b id="advCoins">0</b></span><span id="advMsg">Đi thật xa và thu hoạch thật nhiều xu!</span></div>
+ <div class="adventureHud"><span>❓ Đúng: <b id="advDone">0/8</b></span><span>⭐ Rương từ: <b id="advTreasure">0/1</b></span><span>🎁 Hộp xu: <b id="advMystery">0/1</b></span><span>🪙 Xu: <b id="advCoins">0</b></span><span id="advMsg">${mode.icon} ${mode.name}: đi thật xa và thu hoạch thật nhiều xu!</span></div>
  <div class="adventureWrap"><canvas id="adventureCanvas" width="900" height="420"></canvas>
  <div id="advModal" class="advModal hidden"><div class="advQuiz" id="advQuiz"></div></div></div>
- <div class="adventureControls"><button id="advLeft">⬅️</button><button id="advJump">⬆️ Nhảy</button><button id="advRight">➡️</button></div>
+ <div class="adventureControls"><button id="advLeft">⬅️</button><button id="advJump">${mode.id==="snake"?"⬆️ Vươn lên":"⬆️ Nhảy"}</button><button id="advRight">➡️</button></div>
  <p><button class="light" onclick="game()">⬅️ Game Center</button> <button onclick="adventureGame4()">🔄 Chơi lại</button></p></div>`;
  const cvs=document.getElementById("adventureCanvas"),ctx=cvs.getContext("2d"),W=6500,H=420,ground=350;
- const theme=ADV_THEME4[(U.n-1)%ADV_THEME4.length];
  const player={x:65,y:ground-50,w:34,h:50,vx:0,vy:0,on:true,dir:1};
  const qxs=[600,1300,2050,2800,3550,4300,5050,5650];
  const boxes=qxs.map((x,i)=>({x,y:278-(i%2)*30,w:48,h:48,q:i}));
@@ -607,12 +629,12 @@ function adventureGame4(){
  const platforms=[{x:0,y:ground,w:W,h:70},...qxs.map((x,i)=>({x:x-90,y:315-(i%2)*30,w:225,h:18}))];
  const obstacles=[850,1550,2350,3100,3850,4600,5350,6050].map((x,i)=>({x,y:ground-(32+i%3*5),w:40,h:32+i%3*5}));
  const finish={x:6380,y:210,w:10,h:140};
- let keys={l:false,r:false},paused=false,won=false,cam=0,coinCount=0,last=performance.now();
+ let keys={l:false,r:false},paused=false,won=false,cam=0,coinCount=0,last=performance.now(),snakeLen=5;
  const hit=(a,b)=>a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y;
  const msg=s=>{let e=document.getElementById("advMsg");if(e)e.textContent=s};
  function bind(id,k){let el=document.getElementById(id);let on=e=>{e.preventDefault();keys[k]=true},off=e=>{e.preventDefault();keys[k]=false};el.addEventListener("pointerdown",on);["pointerup","pointercancel","pointerleave"].forEach(x=>el.addEventListener(x,off))}
  bind("advLeft","l");bind("advRight","r");
- function jump(e){if(e)e.preventDefault();if(!paused&&player.on){player.vy=-12.5;player.on=false}}
+ function jump(e){if(e)e.preventDefault();if(!paused&&player.on){player.vy=-mode.jump;player.on=false}}
  document.getElementById("advJump").addEventListener("pointerdown",jump);
  window.advKeyDown=e=>{if(!document.getElementById("adventureCanvas"))return;if(e.key==="ArrowLeft")keys.l=true;if(e.key==="ArrowRight")keys.r=true;if(e.key==="ArrowUp"||e.key===" "){e.preventDefault();jump()}};
  window.advKeyUp=e=>{if(e.key==="ArrowLeft")keys.l=false;if(e.key==="ArrowRight")keys.r=false};
@@ -651,33 +673,52 @@ function adventureGame4(){
   document.getElementById("advQuiz").innerHTML=`<h3>🎁 HỘP XU BÍ ẨN</h3>
    <div style="font-size:64px">🪙</div>
    <p>Ồ! Gia Khôi nhận được <b style="font-size:30px">+${mystery.reward} xu</b>!</p>
-   <p>Mỗi lần chơi, hộp có thể chứa ngẫu nhiên từ <b>10 đến 300 xu</b>.</p>
+   <p>Mỗi lần chơi, hộp có thể chứa ngẫu nhiên từ <b>10 đến 300 xu</b>. 🎲 Không ai biết trước bên trong có bao nhiêu!</p>
    <button id="advMysteryGo">➡️ Tiếp tục khám phá</button>`;
   document.getElementById("advModal").classList.remove("hidden");
   document.getElementById("advMysteryGo").onclick=closeModal;
  }
  function reset(){player.x=Math.max(40,cam+20);player.y=ground-player.h;player.vx=player.vy=0}
  function update(){
-  if(paused||won)return;player.vx=(keys.r?4.8:0)+(keys.l?-4.8:0);if(player.vx)player.dir=player.vx>0?1:-1;player.vy+=.62;let oy=player.y;player.x+=player.vx;player.y+=player.vy;player.x=Math.max(0,Math.min(W-player.w,player.x));player.on=false;
+  if(paused||won)return;player.vx=(keys.r?mode.speed:0)+(keys.l?-mode.speed:0);if(player.vx)player.dir=player.vx>0?1:-1;player.vy+=.62;let oy=player.y;player.x+=player.vx;player.y+=player.vy;player.x=Math.max(0,Math.min(W-player.w,player.x));player.on=false;
   for(let p of platforms)if(player.x+player.w>p.x&&player.x<p.x+p.w&&oy+player.h<=p.y+4&&player.y+player.h>=p.y&&player.vy>=0){player.y=p.y-player.h;player.vy=0;player.on=true}
   if(player.y>H+50)reset();obstacles.forEach(o=>{if(hit(player,o)){player.x-=player.vx*2;player.vx=0}});
-  coins.forEach(c=>{if(!c.taken&&Math.abs(player.x-c.x)<30&&Math.abs(player.y-c.y)<55){c.taken=true;coinCount++;document.getElementById("advCoins").textContent=coinCount}});
+  coins.forEach(c=>{if(!c.taken&&Math.abs(player.x-c.x)<30&&Math.abs(player.y-c.y)<55){c.taken=true;coinCount++;if(mode.id==="snake"&&coinCount%5===0)snakeLen=Math.min(12,snakeLen+1);document.getElementById("advCoins").textContent=coinCount}});
   boxes.forEach(b=>{if(!quiz[b.q].done&&hit(player,b))openQuiz(b.q)});
   if(!mystery.opened&&hit(player,mystery))openMystery();
   if(!treasure.opened&&hit(player,treasure))openTreasure();
-  if(player.x+player.w>finish.x){if(quiz.every(x=>x.done)&&treasure.opened&&mystery.opened){won=true;markGame4("adventure");adventureCelebrate4();document.getElementById("content").innerHTML=`<div class="card reward" style="text-align:center"><div style="font-size:72px">🎉🏆🎊</div><h2>Chúc mừng Gia Khôi!</h2><h3>Con đã hoàn thành thử thách English Adventure – Unit ${U.n}!</h3><p>Con đã đi đến đích, mở đủ <b>8/8 hộp câu hỏi</b>, <b>Rương Từ Vựng</b> và <b>Hộp Xu Bí Ẩn</b>.</p><p style="font-size:26px">🪙 Tổng thu hoạch: <b>${coinCount} xu</b></p><p>🌟 Tuyệt vời! Hãy tiếp tục chinh phục Unit tiếp theo nhé!</p><button onclick="game()">➡️ Game Center</button> <button onclick="adventureGame4()">🔄 Chơi lại màn này</button></div>`}else{player.x=finish.x-110;let miss=[];if(!quiz.every(x=>x.done))miss.push("8 hộp câu hỏi");if(!treasure.opened)miss.push("Rương Từ Vựng");if(!mystery.opened)miss.push("Hộp Xu Bí Ẩn");msg("Chưa thể về đích! Còn phải mở: "+miss.join(", ")+".")}}
+  if(player.x+player.w>finish.x){if(quiz.every(x=>x.done)&&treasure.opened&&mystery.opened){won=true;markGame4("adventure");adventureCelebrate4();document.getElementById("content").innerHTML=`<div class="card reward" style="text-align:center"><div style="font-size:72px">🎉🏆🎊</div><h2>Chúc mừng Gia Khôi!</h2><h3>Con đã hoàn thành thử thách ${mode.icon} ${mode.name} – Unit ${U.n}!</h3><p>Con đã đi đến đích, mở đủ <b>8/8 hộp câu hỏi</b>, <b>Rương Từ Vựng</b> và <b>Hộp Xu Bí Ẩn</b>.</p><p style="font-size:26px">🪙 Tổng thu hoạch: <b>${coinCount} xu</b></p><p>🌟 Tuyệt vời! Hãy tiếp tục chinh phục Unit tiếp theo nhé!</p><button onclick="game()">➡️ Game Center</button> <button onclick="adventureGame4()">🔄 Chơi lại màn này</button></div>`}else{player.x=finish.x-110;let miss=[];if(!quiz.every(x=>x.done))miss.push("8 hộp câu hỏi");if(!treasure.opened)miss.push("Rương Từ Vựng");if(!mystery.opened)miss.push("Hộp Xu Bí Ẩn");msg("Chưa thể về đích! Còn phải mở: "+miss.join(", ")+".")}}
   cam=Math.max(0,Math.min(W-cvs.width,player.x-260))
  }
  function drawPlayer(){
    const x=player.x,y=player.y;
    ctx.save();ctx.translate(x+17,y+25);if(player.dir<0)ctx.scale(-1,1);ctx.translate(-17,-25);
-   ctx.fillStyle="#263238";ctx.fillRect(8,42,8,8);ctx.fillRect(22,42,8,8);
-   ctx.fillStyle="#315fce";ctx.fillRect(7,20,22,24);
-   ctx.fillStyle="#ff7043";ctx.fillRect(3,21,6,19);ctx.fillRect(29,21,6,19);
-   ctx.fillStyle="#ffd2ad";ctx.beginPath();ctx.arc(18,12,11,0,Math.PI*2);ctx.fill();
-   ctx.fillStyle="#4b2c20";ctx.beginPath();ctx.arc(18,8,11,Math.PI,Math.PI*2);ctx.fill();
-   ctx.fillStyle="#fff";ctx.fillRect(21,10,4,4);ctx.fillStyle="#263238";ctx.fillRect(23,11,2,2);
-   ctx.fillStyle="#ffca28";ctx.fillRect(5,1,26,6);ctx.fillRect(9,-4,18,6);
+   if(mode.id==="run"){
+     ctx.fillStyle="#263238";ctx.fillRect(8,42,8,8);ctx.fillRect(22,42,8,8);
+     ctx.fillStyle="#315fce";ctx.fillRect(7,20,22,24);
+     ctx.fillStyle="#ff7043";ctx.fillRect(3,21,6,19);ctx.fillRect(29,21,6,19);
+     ctx.fillStyle="#ffd2ad";ctx.beginPath();ctx.arc(18,12,11,0,Math.PI*2);ctx.fill();
+     ctx.fillStyle="#4b2c20";ctx.beginPath();ctx.arc(18,8,11,Math.PI,Math.PI*2);ctx.fill();
+     ctx.fillStyle="#fff";ctx.fillRect(21,10,4,4);ctx.fillStyle="#263238";ctx.fillRect(23,11,2,2);
+     ctx.fillStyle="#ffca28";ctx.fillRect(5,1,26,6);ctx.fillRect(9,-4,18,6);
+   }else if(mode.id==="car"){
+     ctx.fillStyle="#ef4444";ctx.fillRect(-3,18,44,21);ctx.fillStyle="#fb7185";ctx.fillRect(7,8,25,14);
+     ctx.fillStyle="#dbeafe";ctx.fillRect(10,10,9,9);ctx.fillRect(21,10,8,9);
+     ctx.fillStyle="#1f2937";[5,31].forEach(px=>{ctx.beginPath();ctx.arc(px+2,41,7,0,Math.PI*2);ctx.fill()});
+     ctx.fillStyle="#fde68a";ctx.fillRect(36,23,6,7);
+   }else if(mode.id==="bike"){
+     ctx.strokeStyle="#334155";ctx.lineWidth=4;
+     ctx.beginPath();ctx.arc(2,40,9,0,Math.PI*2);ctx.arc(34,40,9,0,Math.PI*2);ctx.stroke();
+     ctx.strokeStyle="#f97316";ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(2,40);ctx.lineTo(15,25);ctx.lineTo(34,40);ctx.lineTo(18,40);ctx.lineTo(15,25);ctx.stroke();
+     ctx.fillStyle="#2563eb";ctx.fillRect(13,12,8,17);ctx.fillStyle="#ffd2ad";ctx.beginPath();ctx.arc(18,7,7,0,Math.PI*2);ctx.fill();
+     ctx.fillStyle="#111827";ctx.fillRect(11,0,14,4);
+   }else{
+     // Snake hunt: grows every 5 collected coins.
+     for(let i=snakeLen-1;i>=0;i--){ctx.fillStyle=i===0?"#16a34a":"#4ade80";ctx.beginPath();ctx.arc(18-i*8,27+(i%2)*2,9,0,Math.PI*2);ctx.fill()}
+     ctx.fillStyle="#22c55e";ctx.beginPath();ctx.arc(22,21,13,0,Math.PI*2);ctx.fill();
+     ctx.fillStyle="#fff";ctx.beginPath();ctx.arc(27,18,3,0,Math.PI*2);ctx.fill();ctx.fillStyle="#111827";ctx.beginPath();ctx.arc(28,18,1.5,0,Math.PI*2);ctx.fill();
+     ctx.strokeStyle="#ef4444";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(34,23);ctx.lineTo(42,23);ctx.stroke();
+   }
    ctx.restore()
  }
  function draw(){
@@ -690,13 +731,14 @@ function adventureGame4(){
   ctx.fillStyle=theme[1];ctx.fillRect(0,ground,W,70);ctx.fillStyle="#3d9234";ctx.fillRect(0,ground,W,10);
   platforms.slice(1).forEach(p=>{ctx.fillStyle="#9c6336";ctx.fillRect(p.x,p.y,p.w,p.h);ctx.fillStyle="#63b64a";ctx.fillRect(p.x,p.y,p.w,6)});
   obstacles.forEach(o=>{ctx.fillStyle="#8d5a32";ctx.fillRect(o.x,o.y,o.w,o.h);ctx.strokeStyle="#6d4527";ctx.strokeRect(o.x,o.y,o.w,o.h)});
-  coins.forEach(c=>{if(!c.taken){ctx.fillStyle="#ffd32a";ctx.beginPath();ctx.arc(c.x,c.y,9,0,Math.PI*2);ctx.fill();ctx.strokeStyle="#e09d00";ctx.stroke()}});
+  coins.forEach((c,ci)=>{if(!c.taken){if(mode.id==="snake"&&ci%4===0){ctx.font="19px sans-serif";ctx.fillText(ci%8===0?"🍎":"🍓",c.x-9,c.y+7)}else{ctx.fillStyle="#ffd32a";ctx.beginPath();ctx.arc(c.x,c.y,9,0,Math.PI*2);ctx.fill();ctx.strokeStyle="#e09d00";ctx.stroke()}}});
   boxes.forEach(b=>{ctx.fillStyle=quiz[b.q].done?"#55c779":"#ffb42d";ctx.fillRect(b.x,b.y,b.w,b.h);ctx.strokeStyle="#7a4b10";ctx.lineWidth=3;ctx.strokeRect(b.x,b.y,b.w,b.h);ctx.fillStyle="#fff";ctx.font="bold 29px Arial";ctx.fillText(quiz[b.q].done?"✓":"?",b.x+14,b.y+34)});
   ctx.fillStyle=mystery.opened?"#8899a6":"#f59e0b";ctx.fillRect(mystery.x,mystery.y,mystery.w,mystery.h);ctx.strokeStyle="#fff3a3";ctx.lineWidth=4;ctx.strokeRect(mystery.x,mystery.y,mystery.w,mystery.h);ctx.fillStyle="#fff";ctx.font="bold 25px Arial";ctx.fillText(mystery.opened?"✓":"🎁",mystery.x+10,mystery.y+38);
   ctx.fillStyle=treasure.opened?"#8899a6":"#7b4ed1";ctx.fillRect(treasure.x,treasure.y,treasure.w,treasure.h);ctx.strokeStyle="#ffd54f";ctx.lineWidth=4;ctx.strokeRect(treasure.x,treasure.y,treasure.w,treasure.h);ctx.fillStyle="#fff";ctx.font="bold 25px Arial";ctx.fillText(treasure.opened?"✓":"★",treasure.x+18,treasure.y+38);
   ctx.fillStyle="#795548";ctx.fillRect(finish.x,finish.y,finish.w,finish.h);ctx.fillStyle="#ff4f5e";ctx.beginPath();ctx.moveTo(finish.x+10,finish.y);ctx.lineTo(finish.x+82,finish.y+24);ctx.lineTo(finish.x+10,finish.y+48);ctx.closePath();ctx.fill();
   // Unit-specific scenery so each map feels different.
   ctx.font="28px sans-serif";for(let x=350+U.n*31;x<W-200;x+=620){ctx.fillText(theme[3],x,ground-18)}
+  ctx.font="25px sans-serif";for(let x=700;x<W-300;x+=930){ctx.fillText(mode.id==="car"?"🚦":mode.id==="bike"?"🏁":mode.id==="snake"?"🍎":"🌟",x,ground-55)}
   drawPlayer();ctx.restore()
  }
  function loop(t){if(!document.getElementById("adventureCanvas")){adventureAnim=null;return}last=t;update();draw();adventureAnim=requestAnimationFrame(loop)}
