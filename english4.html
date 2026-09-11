@@ -1,5 +1,5 @@
 <!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Laptinh Learning - English 4 – Gia Khôi V9.8 Expanded Adventure</title><style>
+<title>Laptinh Learning - English 4 – Gia Khôi V9.9 Long Adventure</title><style>
 *{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f8fd;color:#182033}header{text-align:center;background:white;padding:20px;box-shadow:0 2px 12px #0001}
 header h1{margin:0}.stats{display:inline-block;background:#fff3bf;padding:10px 16px;border-radius:20px}main{max-width:1050px;margin:auto;padding:22px 14px 70px}.hidden{display:none}
 .units{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:13px}.unit,.card{background:white;border-radius:20px;padding:19px;box-shadow:0 6px 20px #17203312}.unit{cursor:pointer}.unit h3{margin:7px 0}.vi{color:#687386}
@@ -82,7 +82,7 @@ button{border:0;border-radius:14px;padding:12px 15px;background:#2864e8;color:wh
 
 </style></head><body>
 <div id="welcome" class="overlay"><div class="welcome"><div class="star">🌟</div><h1>Chào Gia Khôi!</h1><p id="wish"></p><button onclick="enter()">🚀 Bắt đầu học</button></div></div>
-<header><h1>📚 Laptinh Learning V9.8</h1><p>Tiếng Anh lớp 4 • Góc học tập của Gia Khôi</p><div class="stats">⭐ Tổng sao: <b id="stars">0</b> &nbsp; | &nbsp; 🏆 Unit hoàn thành: <b id="done">0</b>/10</div></header>
+<header><h1>📚 Laptinh Learning V9.9</h1><p>Tiếng Anh lớp 4 • Góc học tập của Gia Khôi</p><div class="stats">⭐ Tổng sao: <b id="stars">0</b> &nbsp; | &nbsp; 🏆 Unit hoàn thành: <b id="done">0</b>/10</div></header>
 <main><section id="home"><h2>10 Unit</h2><div class="card"><b>🎤 Luyện nói V8:</b> Nghe mẫu → đọc → xem % chính xác → đọc lại nếu muốn → nộp bài. Nếu mở file trực tiếp mà Chrome chặn micro, nên đưa file lên website HTTPS để luyện nói ổn định hơn.</div><br><div class="card"><b>🚀 Mới:</b> Hoàn thành Game cuối bài sẽ mở <b>Luyện nâng cao</b>. Phần nâng cao thưởng <b>⭐ x2</b>.</div><br><div id="units" class="units"></div></section>
 <section id="learn" class="hidden"><div class="bar"><button class="light" onclick="home()">← Trang chủ</button><h2 id="utitle"></h2></div><div id="steps" class="steps"></div><div id="content"></div></section></main>
 <footer>❤️ Ba chúc Gia Khôi chăm ngoan, học tốt và tiến bộ mỗi ngày!</footer><script>
@@ -483,44 +483,42 @@ function wordSearch4(){
 }
 
 
+const ADV_Q4={"1":[["Where are you from?",["I'm from Viet Nam.","She's from Japan.","He's from Australia.","Yes, I am."],0],["Lucy is from Britain. Where's Lucy from?",["She's from Britain.","She's from Japan.","I'm from Britain.","He's from Britain."],0],["Ben is from America. Where's Ben from?",["He's from America.","She's from America.","He's from Australia.","Yes, he is."],0],["Mary is from Singapore. Where's Mary from?",["She's from Singapore.","She's from Malaysia.","I'm from Singapore.","No, she isn't."],0],["Is she from Malaysia?",["Yes, she is.","Yes, he is.","She's from Japan.","No, I don't."],0],["Is he from Thailand?",["No, he isn't.","No, she isn't.","He's from Thailand.","No, I don't."],0],["Where are they from?",["They're from Australia.","She's from Australia.","I'm from Australia.","Yes, they are."],0],["Which country is this word: Japan?",["Nhật Bản","Thái Lan","Singapore","Malaysia"],0]],"2":[["What time is it? The clock shows 6:00.",["It's six o'clock.","It's seven o'clock.","I get up at six.","Yes, it is."],0],["What time do you get up?",["I get up at six o'clock.","It's six o'clock.","I go to bed at nine.","Yes, I do."],0],["What time do you go to school?",["I go to school at seven o'clock.","It's seven o'clock.","I have lunch at eleven thirty.","No, I don't."],0],["What time do you have breakfast?",["I have breakfast at six fifteen.","I go to school at six fifteen.","It's breakfast.","Yes, I am."],0],["What time do you have lunch?",["I have lunch at eleven thirty.","I have dinner at eleven thirty.","It's Monday.","No, I don't."],0],["What time do you do your homework?",["I do my homework at seven fifteen.","I get up at seven fifteen.","It's seven fifteen.","Yes, it is."],0],["What time do you go to bed?",["I go to bed at nine o'clock.","I go to school at nine o'clock.","It's nine o'clock.","Yes, I do."],0],["Do you go to school at seven?",["Yes, I do.","Yes, I am.","It's seven o'clock.","I go to bed at seven."],0]],"3":[["What day is it today? Today is Monday.",["It's Monday.","It's Sunday.","I study at school.","Yes, it is."],0],["What do you do on Monday?",["I study at school.","It's Monday.","I play football on Saturday.","Yes, I do."],0],["What do you do on Friday?",["I do my homework.","It's Friday.","I listen to music on Sunday.","No, I don't."],0],["What do you do on Saturday?",["I play football.","It's Saturday.","I study at school on Monday.","Yes, it is."],0],["What do you do on Sunday?",["I listen to music.","It's Sunday.","I do my homework on Friday.","No, it isn't."],0],["Do you study at school on Monday?",["Yes, I do.","Yes, I am.","It's Monday.","I study on Sunday."],0],["Do you do housework on Sunday?",["Yes, I do.","Yes, it is.","I do homework on Friday.","It's Sunday."],0],["Which word means “hôm nay”?",["today","week","Sunday","school"],0]],"4":[["When's your birthday?",["It's in May.","I want a cake.","It's Monday.","Yes, I do."],0],["What do you want to eat?",["I want some chips.","I want lemonade.","It's in May.","Yes, please."],0],["What do you want to drink?",["I want lemonade.","I want some grapes.","It's in March.","No, it isn't."],0],["Do you want some jam?",["Yes, please.","Yes, I am.","It's jam.","I want March."],0],["Do you want some grapes?",["No, thank you.","No, I don't from Japan.","It's in April.","I can swim."],0],["Is your birthday in April?",["Yes, it is.","Yes, I do.","It's a cake.","I want April."],0],["Which word means “bữa tiệc”?",["party","birthday","grapes","jam"],0],["Which month comes after March?",["April","January","February","May"],0]],"5":[["Can you swim?",["Yes, I can.","Yes, I do.","I am swim.","It's swimming."],0],["Can you cook?",["No, I can't.","No, I don't.","I can cooking.","It's cook."],0],["What can you do?",["I can draw.","Yes, I can.","I draw Monday.","It's a bike."],0],["What can he do?",["He can play the guitar.","She can play the guitar.","Yes, he does.","He is guitar."],0],["Can she roller skate?",["No, she can't.","No, he can't.","No, she doesn't.","She is skate."],0],["Can he ride a bike?",["Yes, he can.","Yes, she can.","Yes, he does.","He is a bike."],0],["Which phrase means “chơi đàn piano”?",["play the piano","play the guitar","ride a bike","roller skate"],0],["Which word means “bơi”?",["swim","cook","draw","play"],0]],"6":[["Where's your school?",["It's in the city.","There are three.","Yes, there is.","It's a computer room."],0],["How many buildings are there at your school?",["There are three.","It's in the city.","Yes, there are.","There is a playground."],0],["How many computer rooms are there at your school?",["There are two.","It's in the village.","Yes, there is.","It's a computer."],0],["Is there a playground at your school?",["Yes, there is.","Yes, it is.","There are two.","It's in the town."],0],["Are there two computer rooms?",["Yes, there are.","Yes, there is.","It's two.","There is two."],0],["Is there a garden at your school?",["Yes, there is.","Yes, it is.","There are garden.","It's a village."],0],["Which word means “sân chơi”?",["playground","garden","building","village"],0],["Which phrase means “phòng máy tính”?",["computer room","computer","room","school"],0]],"7":[["What subjects do you have today?",["I have English and Maths.","It's Monday.","At eight o'clock.","Yes, I do."],0],["When do you have Science?",["I have it on Tuesday.","I have Science.","At eight o'clock.","Yes, it is."],0],["What time do you have Music?",["I have it at eight o'clock.","I have it on Friday.","It's Music.","Yes, I do."],0],["Do you have PE today?",["Yes, I do.","Yes, I am.","It's PE.","On Tuesday."],0],["Do you have History today?",["No, I don't.","No, I am not.","It's History.","At nine o'clock."],0],["When do you have Geography?",["I have it on Thursday.","I have it at nine o'clock.","It's Geography.","Yes, I do."],0],["Which subject is “Toán”?",["Maths","Music","History","Art"],0],["Which subject is “Khoa học”?",["Science","English","Geography","Vietnamese"],0]],"8":[["What's your favourite subject?",["It's English.","Because I like it.","Yes, I do.","I'm English."],0],["Do you like IT?",["Yes, I do.","Yes, I am.","It's IT.","Because teacher."],0],["Why do you like English?",["Because I want to be an English teacher.","It's English.","Yes, I do.","On Monday."],0],["Why do you like Art?",["Because I want to be a painter.","It's Art.","Yes, I am.","At eight."],0],["Why do you like Music?",["Because I want to be a singer.","It's Music.","No, it isn't.","On Friday."],0],["Are you good at Maths?",["Yes, I am.","Yes, I do.","It's Maths.","I have Maths."],0],["Which word means “họa sĩ”?",["painter","singer","teacher","subject"],0],["Which word means “yêu thích”?",["favourite","because","good","why"],0]],"9":[["Is your Sports Day in June?",["Yes, it is.","Yes, I do.","It's Sports Day.","In October."],0],["Is your Sports Day in July?",["No, it isn't.","No, I don't.","It's July.","No, I am not."],0],["When's your Sports Day?",["It's in October.","Yes, it is.","It's Sports Day.","I like October."],0],["Is his Sports Day in September?",["Yes, it is.","Yes, he does.","It's September Sports.","He is September."],0],["Do you like Sports Day?",["Yes, I do.","Yes, it is.","It's in May.","I am Sports Day."],0],["Which month comes after August?",["September","July","October","June"],0],["Which month comes before December?",["November","October","September","May"],0],["What does “Sports Day” mean?",["Ngày hội Thể thao","kỳ nghỉ hè","môn Thể dục","sân chơi"],0]],"10":[["Were you at the beach last weekend?",["Yes, I was.","Yes, I am.","Yes, I did.","I was London."],0],["Were you at the campsite last weekend?",["No, I wasn't.","No, I don't.","No, it isn't.","I am campsite."],0],["Where were you last summer?",["I was in London.","Yes, I was.","I am in London.","It was summer."],0],["Where was she last summer?",["She was in Sydney.","He was in Sydney.","Yes, she was.","She is Sydney."],0],["Where was he last summer?",["He was in Tokyo.","She was in Tokyo.","Yes, he was.","He is Tokyo."],0],["Were you in Bangkok last summer?",["Yes, I was.","Yes, I am.","It's Bangkok.","I was summer."],0],["Which word means “bãi biển”?",["beach","campsite","countryside","holiday"],0],["Which word means “hôm qua”?",["yesterday","last","summer","weekend"],0]]};
+
 let adventureAnim=null;
 function adventureGame4(){
  if(adventureAnim){cancelAnimationFrame(adventureAnim);adventureAnim=null}
- const allPairs=PAT4[U.n]||[[U.q,U.a]];
- const pairs=[...allPairs].sort(()=>Math.random()-.5).slice(0,6);
- const fallback=["Yes, I do.","No, I don't.","Yes, I am.","No, I am not.","Thank you.","Good morning."];
- let quiz=pairs.map(p=>{
-   let opts=[p[1]];
-   [...allPairs].sort(()=>Math.random()-.5).forEach(x=>{if(x[1]!==p[1]&&!opts.includes(x[1])&&opts.length<4)opts.push(x[1])});
-   fallback.forEach(x=>{if(opts.length<4&&!opts.includes(x))opts.push(x)});
-   let packed=opts.slice(0,4).map((v,i)=>({v,ok:i===0})).sort(()=>Math.random()-.5);
-   return {q:p[0],opts:packed.map(x=>x.v),a:packed.findIndex(x=>x.ok),done:false}
+ const source=(ADV_Q4[U.n]||[]).map(q=>[q[0],[...q[1]],q[2]]);
+ const selected=[...source].sort(()=>Math.random()-.5).slice(0,8);
+ let quiz=selected.map(q=>{
+   let packed=q[1].map((v,i)=>({v,ok:i===q[2]})).sort(()=>Math.random()-.5);
+   return {q:q[0],opts:packed.map(x=>x.v),a:packed.findIndex(x=>x.ok),done:false}
  });
- let treasureWords=[...U.words].sort(()=>Math.random()-.5).slice(0,8);
+ const vocab=[...U.words].sort(()=>Math.random()-.5);
  document.getElementById("content").innerHTML=`<div class="card">
  <h2>🏃 English Adventure – Unit ${U.n}</h2>
- <p>Vượt chướng ngại, mở <b>6 hộp ?</b> để trả lời câu hỏi và chạm các <b>hộp từ vựng 🎁</b> để nhận xu.</p>
- <div class="adventureHud"><span>❓ Đúng: <b id="advDone">0/6</b></span><span>🎁 Từ: <b id="advTreasure">0/8</b></span><span>🪙 Xu: <b id="advCoins">0</b></span><span id="advMsg">Khám phá màn chơi!</span></div>
+ <p>Màn chơi dài hơn: thu thập xu, mở <b>8 hộp ?</b> và tìm <b>1 Rương Từ Vựng ⭐</b>. Muốn nhận xu từ rương, Gia Khôi phải bấm <b>🔊 Nghe từ</b> trước rồi mới được tiếp tục.</p>
+ <div class="adventureHud"><span>❓ Đúng: <b id="advDone">0/8</b></span><span>⭐ Rương từ: <b id="advTreasure">0/1</b></span><span>🪙 Xu: <b id="advCoins">0</b></span><span id="advMsg">Đi thật xa và thu hoạch thật nhiều xu!</span></div>
  <div class="adventureWrap"><canvas id="adventureCanvas" width="900" height="420"></canvas>
  <div id="advModal" class="advModal hidden"><div class="advQuiz" id="advQuiz"></div></div></div>
  <div class="adventureControls"><button id="advLeft">⬅️</button><button id="advJump">⬆️ Nhảy</button><button id="advRight">➡️</button></div>
  <p><button class="light" onclick="game()">⬅️ Game Center</button> <button onclick="adventureGame4()">🔄 Chơi lại</button></p></div>`;
- const cvs=document.getElementById("adventureCanvas"),ctx=cvs.getContext("2d"),W=3000,H=420,ground=350;
- const player={x:60,y:ground-42,w:30,h:42,vx:0,vy:0,on:true};
- const qxs=[350,760,1170,1580,1990,2400];
- const boxes=qxs.map((x,i)=>({x,y:285-(i%2)*25,w:44,h:44,q:i}));
- const txs=[210,540,930,1320,1740,2160,2600,2790];
- const treasures=txs.map((x,i)=>({x,y:ground-42,w:42,h:42,i,opened:false}));
- const coins=[150,470,680,1050,1450,1870,2280,2520,2860].map((x,i)=>({x,y:270-(i%2)*45,taken:false}));
- const platforms=[{x:0,y:ground,w:W,h:70},...qxs.map((x,i)=>({x:x-65,y:315-(i%2)*25,w:175,h:18}))];
- const obstacles=[620,1010,1430,1840,2260,2680].map((x,i)=>({x,y:ground-(32+i%2*6),w:38,h:32+i%2*6}));
- const finish={x:2930,y:215,w:10,h:135};
- let keys={l:false,r:false},paused=false,won=false,cam=0,coinCount=0,treasureCount=0,last=performance.now();
+ const cvs=document.getElementById("adventureCanvas"),ctx=cvs.getContext("2d"),W=5000,H=420,ground=350;
+ const player={x:65,y:ground-50,w:34,h:50,vx:0,vy:0,on:true,dir:1};
+ const qxs=[500,1000,1510,2050,2610,3180,3760,4350];
+ const boxes=qxs.map((x,i)=>({x,y:278-(i%2)*30,w:48,h:48,q:i}));
+ const treasure={x:4680,y:ground-58,w:58,h:58,opened:false};
+ const coinXs=[];for(let x=150;x<4600;x+=105)coinXs.push(x);
+ const coins=coinXs.map((x,i)=>({x,y:255-(i%4)*24,taken:false}));
+ const platforms=[{x:0,y:ground,w:W,h:70},...qxs.map((x,i)=>({x:x-90,y:315-(i%2)*30,w:225,h:18}))];
+ const obstacles=[780,1260,1780,2320,2890,3460,4050,4520].map((x,i)=>({x,y:ground-(32+i%3*5),w:40,h:32+i%3*5}));
+ const finish={x:4920,y:210,w:10,h:140};
+ let keys={l:false,r:false},paused=false,won=false,cam=0,coinCount=0,last=performance.now();
  const hit=(a,b)=>a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y;
  const msg=s=>{let e=document.getElementById("advMsg");if(e)e.textContent=s};
  function bind(id,k){let el=document.getElementById(id);let on=e=>{e.preventDefault();keys[k]=true},off=e=>{e.preventDefault();keys[k]=false};el.addEventListener("pointerdown",on);["pointerup","pointercancel","pointerleave"].forEach(x=>el.addEventListener(x,off))}
  bind("advLeft","l");bind("advRight","r");
- function jump(e){if(e)e.preventDefault();if(!paused&&player.on){player.vy=-12.2;player.on=false}}
+ function jump(e){if(e)e.preventDefault();if(!paused&&player.on){player.vy=-12.5;player.on=false}}
  document.getElementById("advJump").addEventListener("pointerdown",jump);
  window.advKeyDown=e=>{if(!document.getElementById("adventureCanvas"))return;if(e.key==="ArrowLeft")keys.l=true;if(e.key==="ArrowRight")keys.r=true;if(e.key==="ArrowUp"||e.key===" "){e.preventDefault();jump()}};
  window.advKeyUp=e=>{if(e.key==="ArrowLeft")keys.l=false;if(e.key==="ArrowRight")keys.r=false};
@@ -528,41 +526,66 @@ function adventureGame4(){
  function closeModal(){document.getElementById("advModal").classList.add("hidden");paused=false}
  function openQuiz(i){
   if(paused||quiz[i].done)return;paused=true;keys.l=keys.r=false;let q=quiz[i],b=document.getElementById("advQuiz");
-  b.innerHTML=`<h3>❓ Câu hỏi ${i+1}/6</h3><p class="dialogue"><b>${q.q}</b></p>${q.opts.map((a,j)=>`<button class="answer" onclick="adventureAnswer4(${i},${j},this)"><b>${String.fromCharCode(65+j)}.</b> ${a}</button>`).join("")}<div id="advQfb"></div>`;
+  b.innerHTML=`<h3>❓ Câu hỏi ${i+1}/8</h3><p class="dialogue"><b>${q.q}</b></p>${q.opts.map((a,j)=>`<button class="answer" onclick="adventureAnswer4(${i},${j},this)"><b>${String.fromCharCode(65+j)}.</b> ${a}</button>`).join("")}<div id="advQfb"></div>`;
   document.getElementById("advModal").classList.remove("hidden")
  }
  window.adventureAnswer4=(i,a,btn)=>{
   let q=quiz[i],fb=document.getElementById("advQfb");
-  if(a===q.a){q.done=true;btn.classList.add("correct");coinCount+=3;document.getElementById("advCoins").textContent=coinCount;document.getElementById("advDone").textContent=quiz.filter(x=>x.done).length+"/6";fb.innerHTML=`<p class="goodmsg">✅ Chính xác! +3 xu</p><button id="advContinue">➡️ Tiếp tục</button>`;document.getElementById("advContinue").onclick=closeModal}
+  if(a===q.a){q.done=true;btn.classList.add("correct");coinCount+=5;document.getElementById("advCoins").textContent=coinCount;document.getElementById("advDone").textContent=quiz.filter(x=>x.done).length+"/8";fb.innerHTML=`<p class="goodmsg">✅ Chính xác! +5 xu</p><button id="advContinue">➡️ Tiếp tục</button>`;document.getElementById("advContinue").onclick=closeModal}
   else{btn.disabled=true;btn.classList.add("wrong");fb.innerHTML=`<p class="trymsg">❌ Chưa đúng. ${explain4(q.q,q.opts[q.a])}</p>`}
  };
- function openTreasure(t){
-  if(paused||t.opened)return;t.opened=true;paused=true;keys.l=keys.r=false;treasureCount++;coinCount+=2;
-  document.getElementById("advTreasure").textContent=treasureCount+"/8";document.getElementById("advCoins").textContent=coinCount;
-  let w=treasureWords[t.i%treasureWords.length];
-  document.getElementById("advQuiz").innerHTML=`<h3>🎁 Hộp từ vựng! +2 xu</h3><p style="font-size:25px"><b>${w[0]}</b></p><p>${w[2]||""} • ${w[3]||""}</p><p style="font-size:19px">🇻🇳 <b>${w[1]}</b></p><button onclick="speak('${w[0].replaceAll("'","\\'")}')">🔊 Nghe phát âm</button> <button id="advWordContinue">➡️ Tiếp tục</button>`;
-  document.getElementById("advModal").classList.remove("hidden");document.getElementById("advWordContinue").onclick=closeModal
+ function openTreasure(){
+  if(paused||treasure.opened)return;treasure.opened=true;paused=true;keys.l=keys.r=false;
+  let heard=new Set(),bonus=vocab.length*2;
+  document.getElementById("advTreasure").textContent="1/1";
+  function render(){
+    document.getElementById("advQuiz").innerHTML=`<h3>⭐ RƯƠNG TỪ VỰNG UNIT ${U.n}</h3>
+    <p>Rương này chứa <b>đầy đủ ${vocab.length} từ/cụm từ</b> của Unit. Bấm 🔊 để nghe từng từ. <b>Phải nghe ít nhất 1 từ</b> mới mở được nút nhận xu và tiếp tục.</p>
+    <div style="max-height:330px;overflow:auto">${vocab.map((w,i)=>`<div class="dialogue" style="margin:7px 0;padding:9px"><b>${i+1}. ${w[0]}</b> <span>${w[2]||""}</span> <small>${w[3]||""}</small><br>🇻🇳 ${w[1]}<br><button onclick="advHearWord4(${i})">🔊 Nghe từ ${heard.has(i)?"✓":""}</button></div>`).join("")}</div>
+    <p id="advHearStatus">${heard.size?`Đã nghe ${heard.size}/${vocab.length} từ. Có thể nhận xu.`:"Hãy bấm 🔊 Nghe từ trước."}</p>
+    <button id="advClaim" ${heard.size?"":"disabled"}>🪙 Nhận +${bonus} xu & tiếp tục</button>`;
+    document.getElementById("advClaim").onclick=()=>{if(!heard.size)return;coinCount+=bonus;document.getElementById("advCoins").textContent=coinCount;closeModal();msg(`Rương từ vựng: +${bonus} xu!`)}
+  }
+  window.advHearWord4=i=>{heard.add(i);speak(vocab[i][0]);render()};
+  render();document.getElementById("advModal").classList.remove("hidden")
  }
  function reset(){player.x=Math.max(40,cam+20);player.y=ground-player.h;player.vx=player.vy=0}
  function update(){
-  if(paused||won)return;player.vx=(keys.r?4.4:0)+(keys.l?-4.4:0);player.vy+=.62;let oy=player.y;player.x+=player.vx;player.y+=player.vy;player.x=Math.max(0,Math.min(W-player.w,player.x));player.on=false;
+  if(paused||won)return;player.vx=(keys.r?4.8:0)+(keys.l?-4.8:0);if(player.vx)player.dir=player.vx>0?1:-1;player.vy+=.62;let oy=player.y;player.x+=player.vx;player.y+=player.vy;player.x=Math.max(0,Math.min(W-player.w,player.x));player.on=false;
   for(let p of platforms)if(player.x+player.w>p.x&&player.x<p.x+p.w&&oy+player.h<=p.y+4&&player.y+player.h>=p.y&&player.vy>=0){player.y=p.y-player.h;player.vy=0;player.on=true}
   if(player.y>H+50)reset();obstacles.forEach(o=>{if(hit(player,o)){player.x-=player.vx*2;player.vx=0}});
-  coins.forEach(c=>{if(!c.taken&&Math.abs(player.x-c.x)<30&&Math.abs(player.y-c.y)<50){c.taken=true;coinCount++;document.getElementById("advCoins").textContent=coinCount}});
-  boxes.forEach(b=>{if(!quiz[b.q].done&&hit(player,b))openQuiz(b.q)});treasures.forEach(t=>{if(!t.opened&&hit(player,t))openTreasure(t)});
-  if(player.x+player.w>finish.x){if(quiz.every(x=>x.done)){won=true;markGame4("adventure");document.getElementById("content").innerHTML=`<div class="card reward"><h2>🏁 Hoàn thành English Adventure!</h2><p>❓ 6/6 câu hỏi • 🎁 ${treasureCount}/8 hộp từ • 🪙 ${coinCount} xu</p><button onclick="game()">➡️ Game Center</button> <button onclick="adventureGame4()">🔄 Chơi lại</button></div>`}else{player.x=finish.x-80;msg("Cần trả lời đủ 6 câu hỏi trước khi về đích!")}}
-  cam=Math.max(0,Math.min(W-cvs.width,player.x-250))
+  coins.forEach(c=>{if(!c.taken&&Math.abs(player.x-c.x)<30&&Math.abs(player.y-c.y)<55){c.taken=true;coinCount++;document.getElementById("advCoins").textContent=coinCount}});
+  boxes.forEach(b=>{if(!quiz[b.q].done&&hit(player,b))openQuiz(b.q)});
+  if(!treasure.opened&&hit(player,treasure))openTreasure();
+  if(player.x+player.w>finish.x){if(quiz.every(x=>x.done)&&treasure.opened){won=true;markGame4("adventure");document.getElementById("content").innerHTML=`<div class="card reward"><h2>🏁 Hoàn thành English Adventure!</h2><p>❓ 8/8 câu hỏi • ⭐ Rương từ vựng đã mở • 🪙 ${coinCount} xu</p><button onclick="game()">➡️ Game Center</button> <button onclick="adventureGame4()">🔄 Chơi lại</button></div>`}else{player.x=finish.x-100;msg("Cần hoàn thành 8 câu hỏi và mở Rương Từ Vựng trước khi về đích!")}}
+  cam=Math.max(0,Math.min(W-cvs.width,player.x-260))
+ }
+ function drawPlayer(){
+   const x=player.x,y=player.y;
+   ctx.save();ctx.translate(x+17,y+25);if(player.dir<0)ctx.scale(-1,1);ctx.translate(-17,-25);
+   ctx.fillStyle="#263238";ctx.fillRect(8,42,8,8);ctx.fillRect(22,42,8,8);
+   ctx.fillStyle="#315fce";ctx.fillRect(7,20,22,24);
+   ctx.fillStyle="#ff7043";ctx.fillRect(3,21,6,19);ctx.fillRect(29,21,6,19);
+   ctx.fillStyle="#ffd2ad";ctx.beginPath();ctx.arc(18,12,11,0,Math.PI*2);ctx.fill();
+   ctx.fillStyle="#4b2c20";ctx.beginPath();ctx.arc(18,8,11,Math.PI,Math.PI*2);ctx.fill();
+   ctx.fillStyle="#fff";ctx.fillRect(21,10,4,4);ctx.fillStyle="#263238";ctx.fillRect(23,11,2,2);
+   ctx.fillStyle="#ffca28";ctx.fillRect(5,1,26,6);ctx.fillRect(9,-4,18,6);
+   ctx.restore()
  }
  function draw(){
-  ctx.clearRect(0,0,cvs.width,cvs.height);ctx.fillStyle="#bfe8ff";ctx.fillRect(0,0,cvs.width,cvs.height);ctx.save();ctx.translate(-cam,0);
-  ctx.fillStyle="#76c957";ctx.fillRect(0,ground,W,70);ctx.fillStyle="#4ea33d";ctx.fillRect(0,ground,W,10);
-  platforms.slice(1).forEach(p=>{ctx.fillStyle="#b87843";ctx.fillRect(p.x,p.y,p.w,p.h);ctx.fillStyle="#7dbe55";ctx.fillRect(p.x,p.y,p.w,6)});
-  obstacles.forEach(o=>{ctx.fillStyle="#9b6337";ctx.fillRect(o.x,o.y,o.w,o.h)});
-  coins.forEach(c=>{if(!c.taken){ctx.fillStyle="#ffd84a";ctx.beginPath();ctx.arc(c.x,c.y,10,0,Math.PI*2);ctx.fill()}});
-  boxes.forEach(b=>{ctx.fillStyle=quiz[b.q].done?"#75d38a":"#ffbd3d";ctx.fillRect(b.x,b.y,b.w,b.h);ctx.fillStyle="#fff";ctx.font="bold 28px Arial";ctx.fillText(quiz[b.q].done?"✓":"?",b.x+13,b.y+31)});
-  treasures.forEach(t=>{ctx.fillStyle=t.opened?"#a9a9a9":"#8d63d8";ctx.fillRect(t.x,t.y,t.w,t.h);ctx.fillStyle="#fff";ctx.font="bold 22px Arial";ctx.fillText(t.opened?"✓":"🎁",t.x+7,t.y+29)});
-  ctx.fillStyle="#795548";ctx.fillRect(finish.x,finish.y,finish.w,finish.h);ctx.fillStyle="#ff5b63";ctx.beginPath();ctx.moveTo(finish.x+10,finish.y);ctx.lineTo(finish.x+75,finish.y+22);ctx.lineTo(finish.x+10,finish.y+44);ctx.closePath();ctx.fill();
-  ctx.fillStyle="#2366d1";ctx.fillRect(player.x+7,player.y+15,17,26);ctx.fillStyle="#ffd5b5";ctx.beginPath();ctx.arc(player.x+15,player.y+10,10,0,Math.PI*2);ctx.fill();ctx.fillStyle="#ffcc35";ctx.fillRect(player.x+4,player.y,22,7);ctx.restore()
+  ctx.clearRect(0,0,cvs.width,cvs.height);ctx.fillStyle="#aee3ff";ctx.fillRect(0,0,cvs.width,cvs.height);
+  // distant hills/clouds
+  ctx.fillStyle="#e8f7ff";for(let i=0;i<7;i++){ctx.beginPath();ctx.arc(80+i*150,70+(i%2)*25,35,0,Math.PI*2);ctx.arc(115+i*150,70+(i%2)*25,28,0,Math.PI*2);ctx.fill()}
+  ctx.save();ctx.translate(-cam,0);
+  ctx.fillStyle="#8bcf67";for(let x=0;x<W;x+=420){ctx.beginPath();ctx.moveTo(x,ground);ctx.lineTo(x+180,190);ctx.lineTo(x+360,ground);ctx.fill()}
+  ctx.fillStyle="#69bd4e";ctx.fillRect(0,ground,W,70);ctx.fillStyle="#3d9234";ctx.fillRect(0,ground,W,10);
+  platforms.slice(1).forEach(p=>{ctx.fillStyle="#9c6336";ctx.fillRect(p.x,p.y,p.w,p.h);ctx.fillStyle="#63b64a";ctx.fillRect(p.x,p.y,p.w,6)});
+  obstacles.forEach(o=>{ctx.fillStyle="#8d5a32";ctx.fillRect(o.x,o.y,o.w,o.h);ctx.strokeStyle="#6d4527";ctx.strokeRect(o.x,o.y,o.w,o.h)});
+  coins.forEach(c=>{if(!c.taken){ctx.fillStyle="#ffd32a";ctx.beginPath();ctx.arc(c.x,c.y,9,0,Math.PI*2);ctx.fill();ctx.strokeStyle="#e09d00";ctx.stroke()}});
+  boxes.forEach(b=>{ctx.fillStyle=quiz[b.q].done?"#55c779":"#ffb42d";ctx.fillRect(b.x,b.y,b.w,b.h);ctx.strokeStyle="#7a4b10";ctx.lineWidth=3;ctx.strokeRect(b.x,b.y,b.w,b.h);ctx.fillStyle="#fff";ctx.font="bold 29px Arial";ctx.fillText(quiz[b.q].done?"✓":"?",b.x+14,b.y+34)});
+  ctx.fillStyle=treasure.opened?"#8899a6":"#7b4ed1";ctx.fillRect(treasure.x,treasure.y,treasure.w,treasure.h);ctx.strokeStyle="#ffd54f";ctx.lineWidth=4;ctx.strokeRect(treasure.x,treasure.y,treasure.w,treasure.h);ctx.fillStyle="#fff";ctx.font="bold 25px Arial";ctx.fillText(treasure.opened?"✓":"★",treasure.x+18,treasure.y+38);
+  ctx.fillStyle="#795548";ctx.fillRect(finish.x,finish.y,finish.w,finish.h);ctx.fillStyle="#ff4f5e";ctx.beginPath();ctx.moveTo(finish.x+10,finish.y);ctx.lineTo(finish.x+82,finish.y+24);ctx.lineTo(finish.x+10,finish.y+48);ctx.closePath();ctx.fill();
+  drawPlayer();ctx.restore()
  }
  function loop(t){if(!document.getElementById("adventureCanvas")){adventureAnim=null;return}last=t;update();draw();adventureAnim=requestAnimationFrame(loop)}
  adventureAnim=requestAnimationFrame(loop)
