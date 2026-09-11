@@ -1,5 +1,5 @@
 <!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Laptinh Learning English 7 - 12 Units FINAL V5.6</title><style>
+<title>Laptinh Learning English 7 - 12 Units FINAL V5.8</title><style>
 *{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f7fc;color:#18243b}header{background:white;text-align:center;padding:17px;box-shadow:0 2px 12px #0001;position:sticky;top:0;z-index:5}
 main{max-width:1150px;margin:auto;padding:20px 14px 70px}.card{background:white;border-radius:20px;padding:18px;margin:13px 0;box-shadow:0 5px 20px #00000010}.units{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}.unit{cursor:pointer}.unit:hover{transform:translateY(-2px)}
 .tabs{display:flex;gap:7px;flex-wrap:wrap}.tabs button{flex:1 1 130px}button{border:0;border-radius:12px;padding:10px 13px;background:#2864e8;color:white;font-weight:bold;cursor:pointer}.alt{background:#7151bd}.green{background:#0b9d70}.orange{background:#d97706}.light{background:#e9eef8;color:#18243b}
@@ -9,7 +9,7 @@ table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px so
 .speedctl{max-width:900px;margin:10px auto;padding:10px 14px;background:#eef5ff;border-radius:14px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
 .speedctl input{width:180px}.speedctl b{min-width:48px}
 </style></head><body>
-<header><h1>📚 Laptinh Learning – English 7</h1><div><b>FINAL V5.6 • 12 Units • Việt–Anh / Vietnamese–English</b></div><div>⭐ Tổng sao: <b id="stars">0</b> &nbsp;|&nbsp; 🏆 Unit hoàn thành: <b id="doneCount">0</b>/12</div></header><div class="speedctl">🎙️ <b>Giọng đọc / Voice</b>
+<header><h1>📚 Laptinh Learning – English 7</h1><div><b>FINAL V5.8 • 12 Units • Việt–Anh / Vietnamese–English</b></div><div>⭐ Tổng sao: <b id="stars">0</b> &nbsp;|&nbsp; 🏆 Unit hoàn thành: <b id="doneCount">0</b>/12</div></header><div class="speedctl">🎙️ <b>Giọng đọc / Voice</b>
 <select id="voiceSelect" onchange="setVoice(this.value)" style="max-width:310px;padding:8px;border-radius:10px"><option>Đang tải giọng English...</option></select>
 <button onclick="testVoice()">▶️ Nghe thử giọng / Test voice</button>
 <span style="flex-basis:100%;height:0"></span>
@@ -26,20 +26,26 @@ function K(s){return `e7_${U.n}_${s}`} function completed(s){return localStorage
 function award(s,n=1){if(!completed(s)){localStorage.setItem(K(s),"1");localStorage.setItem("e7stars",+(localStorage.getItem("e7stars")||0)+n)}status();unitProgress()}
 function status(){stars.textContent=localStorage.getItem("e7stars")||0;doneCount.textContent=DATA.filter(u=>localStorage.getItem(`e7_${u.n}_unitdone`)).length;unitList.innerHTML=DATA.map(u=>`<div class="card unit" onclick="openUnit(${u.n})"><b>Unit ${u.n}</b><h3>${u.title}</h3><p>${u.vi}</p><span>${localStorage.getItem(`e7_${u.n}_unitdone`)?"✅ Hoàn thành":"▶️ Vào học"}</span></div>`).join("")}
 function unitProgress(){if(!U)return;let n=sections.filter(completed).length,p=Math.round(n/sections.length*100);upct.textContent=p+"%";ubar.style.width=p+"%";if(completed("test"))localStorage.setItem(`e7_${U.n}_unitdone`,"1")}
-function openUnit(n){U=DATA.find(x=>x.n===n);home.classList.add("hidden");learn.classList.remove("hidden");ut.textContent=`Unit ${U.n} – ${U.title}`;tabs.innerHTML=`<button class="alt" onclick="show('overview')">🧭 Cấu trúc / Structures</button><button onclick="show('vocab')">📚 Từ vựng / Vocabulary</button><button onclick="show('vocabpractice')">🧩 Luyện từ / Vocabulary Practice</button><button class="orange" onclick="show('pron')">🔊 Phát âm / Pronunciation</button><button class="alt" onclick="show('grammar')">🧠 Ngữ pháp / Grammar</button><button onclick="show('order')">🔀 Sắp xếp câu / Sentence Ordering</button><button class="orange" onclick="show('error')">🔎 Tìm lỗi sai / Find the Mistake</button><button onclick="show('comm')">💬 Giao tiếp / Communication</button><button class="green" onclick="show('reading')">📖 Đọc / Reading</button><button class="green" onclick="show('listening')">🎧 Nghe / Listening</button><button class="alt" onclick="show('writing')">✍️ Viết / Writing</button><button class="green" onclick="show('speaking')">🎤 Nói / Speaking</button><button onclick="show('back')">🔁 Ôn tập / Looking Back</button><button class="orange" onclick="show('test')">📝 Bài kiểm tra / Unit Test</button>`;unitProgress();show("overview")}
-function goHome(){learn.classList.add("hidden");home.classList.remove("hidden");status()}
+function openUnit(n){let sc=document.querySelector(".speedctl");if(sc)sc.style.display="none";U=DATA.find(x=>x.n===n);home.classList.add("hidden");learn.classList.remove("hidden");ut.textContent=`Unit ${U.n} – ${U.title}`;tabs.innerHTML=`<button class="alt" onclick="show('overview')">🧭 Cấu trúc / Structures</button><button onclick="show('vocab')">📚 Từ vựng / Vocabulary</button><button onclick="show('vocabpractice')">🧩 Luyện từ / Vocabulary Practice</button><button class="orange" onclick="show('pron')">🔊 Phát âm / Pronunciation</button><button class="alt" onclick="show('grammar')">🧠 Ngữ pháp / Grammar</button><button onclick="show('order')">🔀 Sắp xếp câu / Sentence Ordering</button><button class="orange" onclick="show('error')">🔎 Tìm lỗi sai / Find the Mistake</button><button onclick="show('comm')">💬 Giao tiếp / Communication</button><button class="green" onclick="show('reading')">📖 Đọc / Reading</button><button class="green" onclick="show('listening')">🎧 Nghe / Listening</button><button class="alt" onclick="show('writing')">✍️ Viết / Writing</button><button class="green" onclick="show('speaking')">🎤 Nói / Speaking</button><button onclick="show('back')">🔁 Ôn tập / Looking Back</button><button class="orange" onclick="show('test')">📝 Bài kiểm tra / Unit Test</button>`;unitProgress();show("overview")}
+function goHome(){let sc=document.querySelector(".speedctl");if(sc)sc.style.display="flex";learn.classList.add("hidden");home.classList.remove("hidden");status()}
 let EN_VOICES=[];
 function loadEnglishVoices(){
  EN_VOICES=speechSynthesis.getVoices().filter(v=>/^en[-_]/i.test(v.lang)||/^English/i.test(v.name));
  let s=document.getElementById("voiceSelect"); if(!s)return;
  let saved=localStorage.getItem("e7_voice_uri")||"";
  s.innerHTML="";
- EN_VOICES.forEach(v=>{let o=document.createElement("option");o.value=v.voiceURI||v.name;o.textContent=v.name+" — "+v.lang;if(o.value===saved)o.selected=true;s.appendChild(o)});
+ EN_VOICES.forEach(v=>{let o=document.createElement("option");o.value=v.voiceURI||v.name;o.textContent=v.name+" — "+v.lang;if(o.value===saved||(!saved&&/karen/i.test(v.name)))o.selected=true;s.appendChild(o)});
+ if(!saved){let k=EN_VOICES.find(v=>/karen/i.test(v.name));if(k)localStorage.setItem("e7_voice_uri",k.voiceURI||k.name)}
  if(!EN_VOICES.length){let o=document.createElement("option");o.textContent="Chưa có giọng English khả dụng";s.appendChild(o)}
 }
 function voice(){
  let saved=localStorage.getItem("e7_voice_uri")||"";
- return EN_VOICES.find(v=>(v.voiceURI||v.name)===saved)||EN_VOICES.find(v=>v.lang==="en-GB")||EN_VOICES.find(v=>v.lang==="en-US")||EN_VOICES[0]
+ return EN_VOICES.find(v=>(v.voiceURI||v.name)===saved)
+   || EN_VOICES.find(v=>/karen/i.test(v.name))
+   || EN_VOICES.find(v=>v.lang==="en-AU")
+   || EN_VOICES.find(v=>v.lang==="en-GB")
+   || EN_VOICES.find(v=>v.lang==="en-US")
+   || EN_VOICES[0]
 }
 function setVoice(v){localStorage.setItem("e7_voice_uri",v)}
 function testVoice(){say("Hello Gia Khang. This is the English voice you selected.")}
