@@ -36,6 +36,50 @@ button{border:0;border-radius:14px;padding:12px 15px;background:#2864e8;color:wh
 .advQuiz h3{margin-top:0}.advQuiz .answer{font-size:16px}
 @media(max-width:600px){.adventureControls button{min-width:68px;padding:10px}.adventureHud{font-size:14px}}
 
+
+/* Mobile-friendly matching games */
+.matchCards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.matchCards .answer,.qaMobile .answer{
+  width:100%;min-width:0;min-height:64px;height:auto;
+  white-space:normal;overflow-wrap:anywhere;word-break:normal;
+  line-height:1.35;text-align:left;padding:12px 13px;font-size:16px
+}
+.qaMobile{display:block}
+.qaTitle{font-weight:800;margin:12px 0 8px}
+.qaSelected{
+  position:sticky;top:6px;z-index:3;background:#eef6ff;border:2px solid #79aef7;
+  border-radius:14px;padding:12px;margin:10px 0 14px;box-shadow:0 4px 12px #0001
+}
+.qaAnswers{display:grid;grid-template-columns:1fr;gap:9px}
+@media(max-width:600px){
+ .matchCards{grid-template-columns:1fr}
+ .matchCards .answer,.qaMobile .answer{font-size:17px;min-height:58px}
+ .qaSelected{top:4px}
+}
+
+
+/* V9.7 mobile full-text fix */
+@media(max-width:700px){
+  #content,.card,.qaMobile,.adventureWrap{max-width:100%!important;min-width:0!important;box-sizing:border-box!important}
+  .card{padding:12px!important;overflow:visible!important}
+  .matchCards,.qaAnswers{display:flex!important;flex-direction:column!important;width:100%!important;gap:10px!important}
+  .matchCards .answer,.qaMobile .answer,.qaAnswers button,.card button.answer{
+    display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;
+    height:auto!important;max-height:none!important;min-height:58px!important;
+    white-space:normal!important;overflow:visible!important;text-overflow:clip!important;
+    overflow-wrap:break-word!important;word-break:normal!important;
+    line-height:1.45!important;text-align:left!important;padding:12px!important;
+    font-size:16px!important;box-sizing:border-box!important
+  }
+  .qaSelected{
+    position:static!important;width:100%!important;max-width:100%!important;
+    white-space:normal!important;overflow:visible!important;overflow-wrap:break-word!important;
+    box-sizing:border-box!important
+  }
+  .qaSelected div{white-space:normal!important;overflow:visible!important;overflow-wrap:break-word!important}
+  .adventureControls{position:static!important}
+}
+
 </style></head><body>
 <div id="welcome" class="overlay"><div class="welcome"><div class="star">🌟</div><h1>Chào Gia Khôi!</h1><p id="wish"></p><button onclick="enter()">🚀 Bắt đầu học</button></div></div>
 <header><h1>📚 Laptinh Learning V9.7</h1><p>Tiếng Anh lớp 4 • Góc học tập của Gia Khôi</p><div class="stats">⭐ Tổng sao: <b id="stars">0</b> &nbsp; | &nbsp; 🏆 Unit hoàn thành: <b id="done">0</b>/10</div></header>
@@ -321,37 +365,69 @@ function matchGame4(){
  let cards=[];pairs.forEach(p=>{cards.push({id:p.id,text:p.en,kind:"en"});cards.push({id:p.id,text:p.vi,kind:"vi"})});
  cards.sort(()=>Math.random()-.5);let first=null,matched=new Set();
  function draw(){
-  document.getElementById("content").innerHTML=`<div class="card"><h2>🧩 Nối từ với nghĩa</h2><p>Chọn 1 từ tiếng Anh rồi chọn nghĩa tiếng Việt tương ứng.</p><div class="grid">${cards.map((c,i)=>`<button class="answer" id="mc${i}" onclick="pickMatch4(${i})" ${matched.has(c.id)?"disabled":""}>${matched.has(c.id)?"✅":c.text}</button>`).join("")}</div><div id="mfb"></div><p><button onclick="game()">⬅️ Game Center</button></p></div>`
+  document.getElementById("content").innerHTML=`<div class="card"><h2>🧩 Nối từ với nghĩa</h2>
+  <p>Chọn 1 từ tiếng Anh rồi chọn nghĩa tiếng Việt tương ứng.</p>
+  <div class="matchCards">${cards.map((c,i)=>`<button class="answer" id="mc${i}" onclick="pickMatch4(${i})" ${matched.has(c.id)?"disabled":""}>${matched.has(c.id)?"✅ Đã nối":c.text}</button>`).join("")}</div>
+  <div id="mfb"></div><p><button onclick="game()">⬅️ Game Center</button></p></div>`
+  if(first!==null){
+    let el=document.getElementById("mc"+first);
+    if(el)el.classList.add("correct");
+  }
  }
  window.pickMatch4=i=>{
   let c=cards[i];if(matched.has(c.id))return;
-  if(first===null){first=i;document.getElementById("mc"+i).classList.add("correct");return}
+  if(first===null){first=i;draw();return}
+  if(first===i){first=null;draw();return}
   let a=cards[first];
   if(a.id===c.id&&a.kind!==c.kind){
    matched.add(c.id);first=null;
-   if(matched.size===pairs.length){markGame4("match");document.getElementById("content").innerHTML=`<div class="card reward"><h2>🎉 Hoàn thành nối từ!</h2><p>Gia Khôi đã nối đúng ${pairs.length} cặp.</p><button onclick="game()">➡️ Chọn trò khác</button></div>`}
-   else draw()
-  }else{first=null;draw();document.getElementById("mfb").innerHTML='<p class="trymsg">Chưa đúng cặp, thử lại nhé.</p>'}
+   if(matched.size===pairs.length){
+    markGame4("match");
+    document.getElementById("content").innerHTML=`<div class="card reward"><h2>🎉 Hoàn thành nối từ!</h2><p>Gia Khôi đã nối đúng ${pairs.length} cặp.</p><button onclick="game()">➡️ Chọn trò khác</button></div>`
+   }else draw()
+  }else{
+   first=null;draw();
+   document.getElementById("mfb").innerHTML='<p class="trymsg">Chưa đúng cặp, thử lại nhé.</p>'
+  }
  };
  draw()
 }
 function qaMatchGame4(){
  let pairs=(PAT4[U.n]||[[U.q,U.a]]).map((p,i)=>({id:i,q:p[0],a:p[1]}));
  let qs=[...pairs].sort(()=>Math.random()-.5),as=[...pairs].sort(()=>Math.random()-.5),selQ=null,done=new Set();
- function draw(){
-  document.getElementById("content").innerHTML=`<div class="card"><h2>💬 Nối câu hỏi – trả lời</h2><p>Chọn câu hỏi trước, rồi chọn đúng câu trả lời. Không có hai câu hỏi dùng chung một đáp án.</p>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div>${qs.map((x,i)=>`<button class="answer" id="qq${i}" onclick="pickQ4(${i})" ${done.has(x.id)?"disabled":""}>❓ ${done.has(x.id)?"✅":x.q}</button>`).join("")}</div>
-  <div>${as.map((x,i)=>`<button class="answer" onclick="pickA4(${i})" ${done.has(x.id)?"disabled":""}>💬 ${done.has(x.id)?"✅":x.a}</button>`).join("")}</div></div><div id="qafb"></div><p><button onclick="game()">⬅️ Game Center</button></p></div>`
+ function draw(msg=""){
+  let selected=selQ===null?null:qs[selQ];
+  document.getElementById("content").innerHTML=`<div class="card qaMobile"><h2>💬 Nối câu hỏi – trả lời</h2>
+  ${selected===null?`
+    <p>Chọn <b>một câu hỏi</b>. Sau đó màn hình sẽ chỉ hiện các câu trả lời để dễ đọc trên điện thoại.</p>
+    <div class="qaTitle">❓ Chọn câu hỏi:</div>
+    <div class="qaAnswers">${qs.map((x,i)=>done.has(x.id)?"":`<button class="answer" id="qq${i}" onclick="pickQ4(${i})">❓ ${x.q}</button>`).join("")}</div>
+  `:`
+    <div class="qaSelected"><div><b>❓ Câu hỏi đã chọn:</b></div><div style="margin-top:5px;font-size:17px">${selected.q}</div></div>
+    <div class="qaTitle">💬 Chọn câu trả lời đúng:</div>
+    <div class="qaAnswers">${as.map((x,i)=>done.has(x.id)?"":`<button class="answer" onclick="pickA4(${i})">💬 ${x.a}</button>`).join("")}</div>
+    <p><button class="light" onclick="cancelQ4()">↩️ Chọn câu hỏi khác</button></p>
+  `}
+  <div id="qafb">${msg}</div><p><button onclick="game()">⬅️ Game Center</button></p></div>`
  }
- window.pickQ4=i=>{if(done.has(qs[i].id))return;selQ=i;document.querySelectorAll('[id^="qq"]').forEach(x=>x.classList.remove("correct"));document.getElementById("qq"+i).classList.add("correct")};
+ window.pickQ4=i=>{
+  if(done.has(qs[i].id))return;
+  selQ=i;draw();
+  setTimeout(()=>{let el=document.querySelector(".qaSelected");if(el)el.scrollIntoView({behavior:"smooth",block:"start"})},30)
+};
+ window.cancelQ4=()=>{selQ=null;draw()};
  window.pickA4=i=>{
-  if(selQ===null){document.getElementById("qafb").innerHTML='<p class="trymsg">Chọn câu hỏi trước nhé.</p>';return}
+  if(selQ===null){draw('<p class="trymsg">Chọn câu hỏi trước nhé.</p>');return}
   let q=qs[selQ],a=as[i];
   if(q.id===a.id){
    done.add(q.id);selQ=null;
-   if(done.size===pairs.length){markGame4("qa");document.getElementById("content").innerHTML=`<div class="card reward"><h2>🎉 Hoàn thành nối hỏi – đáp!</h2><button onclick="game()">➡️ Chọn trò khác</button></div>`}
-   else draw()
-  }else{selQ=null;draw();document.getElementById("qafb").innerHTML='<p class="trymsg">Chưa đúng. Đọc lại câu hỏi và chọn câu trả lời khác nhé.</p>'}
+   if(done.size===pairs.length){
+    markGame4("qa");
+    document.getElementById("content").innerHTML=`<div class="card reward"><h2>🎉 Hoàn thành nối hỏi – đáp!</h2><p>Gia Khôi đã nối đúng ${pairs.length} cặp.</p><button onclick="game()">➡️ Chọn trò khác</button></div>`
+   }else draw('<p class="goodmsg">✅ Chính xác! Chọn câu hỏi tiếp theo nhé.</p>')
+  }else{
+   draw('<p class="trymsg">❌ Chưa đúng. Câu hỏi vẫn được giữ ở phía trên, con chọn câu trả lời khác nhé.</p>')
+  }
  };
  draw()
 }
