@@ -1,5 +1,5 @@
 <!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Laptinh Learning - English 4 – Gia Khôi V11.1 Double Up Jump</title><style>
+<title>Laptinh Learning - English 4 – Gia Khôi V11.2 Up To Jump</title><style>
 *{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f8fd;color:#182033}header{text-align:center;background:white;padding:20px;box-shadow:0 2px 12px #0001}
 header h1{margin:0}.stats{display:inline-block;background:#fff3bf;padding:10px 16px;border-radius:20px}main{max-width:1050px;margin:auto;padding:22px 14px 70px}.hidden{display:none}
 .units{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:13px}.unit,.card{background:white;border-radius:20px;padding:19px;box-shadow:0 6px 20px #17203312}.unit{cursor:pointer}.unit h3{margin:7px 0}.vi{color:#687386}
@@ -85,7 +85,7 @@ button{border:0;border-radius:14px;padding:12px 15px;background:#2864e8;color:wh
 #dragonBoatCanvas{display:block;width:100%;max-width:900px;height:auto;border-radius:18px;touch-action:none}
 </style></head><body>
 <div id="welcome" class="overlay"><div class="welcome"><div class="star">🌟</div><h1>Chào Gia Khôi!</h1><p id="wish"></p><button onclick="enter()">🚀 Bắt đầu học</button></div></div>
-<header><h1>📚 Laptinh Learning V11.1</h1><p>Tiếng Anh lớp 4 • Góc học tập của Gia Khôi</p><div class="stats">⭐ Tổng sao: <b id="stars">0</b> &nbsp; | &nbsp; 🏆 Unit hoàn thành: <b id="done">0</b>/10</div></header>
+<header><h1>📚 Laptinh Learning V11.2</h1><p>Tiếng Anh lớp 4 • Góc học tập của Gia Khôi</p><div class="stats">⭐ Tổng sao: <b id="stars">0</b> &nbsp; | &nbsp; 🏆 Unit hoàn thành: <b id="done">0</b>/10</div></header>
 <main><section id="home"><h2>10 Unit</h2><div class="card"><b>🎤 Luyện nói V8:</b> Nghe mẫu → đọc → xem % chính xác → đọc lại nếu muốn → nộp bài. Nếu mở file trực tiếp mà Chrome chặn micro, nên đưa file lên website HTTPS để luyện nói ổn định hơn.</div><br><div class="card"><b>🚀 Mới:</b> Hoàn thành Game cuối bài sẽ mở <b>Luyện nâng cao</b>. Phần nâng cao thưởng <b>⭐ x2</b>.</div><br><div id="units" class="units"></div></section>
 <section id="learn" class="hidden"><div class="bar"><button class="light" onclick="home()">← Trang chủ</button><h2 id="utitle"></h2></div><div id="steps" class="steps"></div><div id="content"></div></section></main>
 <footer>❤️ Ba chúc Gia Khôi chăm ngoan, học tốt và tiến bộ mỗi ngày!</footer><script>
@@ -890,7 +890,7 @@ function adventureGame4(){
  document.getElementById("content").innerHTML=`<div class="card">
  <h2>${mode.icon} ${mode.name} – Unit ${U.n}</h2>
  <p><b>🎲 Chế độ được chọn ngẫu nhiên:</b> ${mode.name}. ${mode.tip}</p>
- <p>Màn chơi dài: đi thật xa, thu hoạch thật nhiều xu, mở <b>8 hộp câu hỏi ❓</b>, <b>1 Rương Từ Vựng ⭐</b> và <b>1 Hộp Xu Bí Ẩn 🎁</b>. Hộp xu cho ngẫu nhiên <b>10–300 xu</b>. Phải mở đủ tất cả hộp mới được về đích. Có nút <b>⬆️ Lên / ⬇️ Xuống</b> để săn xu ở nhiều độ cao. <b>Nhấn ⬆️ Lên 2 lần nhanh</b> để bật lên cao hơn.</p>
+ <p>Màn chơi dài: đi thật xa, thu hoạch thật nhiều xu, mở <b>8 hộp câu hỏi ❓</b>, <b>1 Rương Từ Vựng ⭐</b> và <b>1 Hộp Xu Bí Ẩn 🎁</b>. Hộp xu cho ngẫu nhiên <b>10–300 xu</b>. Phải mở đủ tất cả hộp mới được về đích. Có nút <b>⬆️ Lên</b> để nhảy lên lấy xu trên cao và <b>⬇️ Xuống</b> để di chuyển xuống.</p>
  <div class="adventureHud"><span>❓ Đúng: <b id="advDone">0/8</b></span><span>⭐ Rương từ: <b id="advTreasure">0/1</b></span><span>🎁 Hộp xu: <b id="advMystery">0/1</b></span><span>🪙 Xu: <b id="advCoins">0</b></span><span id="advMsg">${mode.icon} ${mode.name}: đi thật xa và thu hoạch thật nhiều xu!</span></div>
  <div class="adventureWrap"><canvas id="adventureCanvas" width="900" height="420"></canvas>
  <div id="advModal" class="advModal hidden"><div class="advQuiz" id="advQuiz"></div></div></div>
@@ -918,29 +918,14 @@ function adventureGame4(){
  function bind(id,k){let el=document.getElementById(id);let on=e=>{e.preventDefault();keys[k]=true},off=e=>{e.preventDefault();keys[k]=false};el.addEventListener("pointerdown",on);["pointerup","pointercancel","pointerleave"].forEach(x=>el.addEventListener(x,off))}
  bind("advLeft","l");bind("advRight","r");bind("advUp","u");bind("advDown","d");
  function jump(e){if(e)e.preventDefault();if(!paused&&player.on){player.vy=-mode.jump;player.on=false}}
- let lastUpTap4=0;
  const advUpBtn=document.getElementById("advUp");
  advUpBtn.addEventListener("pointerdown",e=>{
-   const now=Date.now();
-   if(now-lastUpTap4<420){
-     e.preventDefault();
-     // Nhấn Lên 2 lần nhanh: bật cao hơn.
-     if(!paused){player.vy=-Math.max(mode.jump+3.5,15);player.on=false}
-     lastUpTap4=0;
-   }else{
-     lastUpTap4=now;
-   }
+   e.preventDefault();
+   jump();
  });
  window.advKeyDown=e=>{if(!document.getElementById("adventureCanvas"))return;
  if(e.key==="ArrowLeft")keys.l=true;if(e.key==="ArrowRight")keys.r=true;
- if(e.key==="ArrowUp"){
-   e.preventDefault();keys.u=true;
-   const now=Date.now();
-   if(window._advLastUpKey4 && now-window._advLastUpKey4<420){
-     if(!paused){player.vy=-Math.max(mode.jump+3.5,15);player.on=false}
-     window._advLastUpKey4=0;
-   }else window._advLastUpKey4=now;
- }
+ if(e.key==="ArrowUp"){e.preventDefault();jump()}
  if(e.key==="ArrowDown"){e.preventDefault();keys.d=true}
 };
  window.advKeyUp=e=>{if(e.key==="ArrowLeft")keys.l=false;if(e.key==="ArrowRight")keys.r=false;if(e.key==="ArrowUp")keys.u=false;if(e.key==="ArrowDown")keys.d=false};
@@ -989,7 +974,6 @@ function adventureGame4(){
   if(paused||won)return;
   player.vx=(keys.r?mode.speed:0)+(keys.l?-mode.speed:0);
   // Lên/xuống giúp săn xu ở nhiều độ cao. Xe/rắn chuyển làn nhẹ, vẫn giữ cơ chế nhảy.
-  if(keys.u)player.y-=3.2;
   if(keys.d)player.y+=3.2;
   player.y=Math.max(135,Math.min(ground-player.h,player.y));if(player.vx)player.dir=player.vx>0?1:-1;player.vy+=.62;let oy=player.y;player.x+=player.vx;player.y+=player.vy;player.x=Math.max(0,Math.min(W-player.w,player.x));player.on=false;
   for(let p of platforms)if(player.x+player.w>p.x&&player.x<p.x+p.w&&oy+player.h<=p.y+4&&player.y+player.h>=p.y&&player.vy>=0){player.y=p.y-player.h;player.vy=0;player.on=true}
