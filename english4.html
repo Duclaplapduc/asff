@@ -1,5 +1,5 @@
 <!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Laptinh Learning - English 4 – Gia Khôi V10.8 QA Audit Fix FINAL</title><style>
+<title>Laptinh Learning - English 4 – Gia Khôi V10.9 Dragon Boat Fishing</title><style>
 *{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f8fd;color:#182033}header{text-align:center;background:white;padding:20px;box-shadow:0 2px 12px #0001}
 header h1{margin:0}.stats{display:inline-block;background:#fff3bf;padding:10px 16px;border-radius:20px}main{max-width:1050px;margin:auto;padding:22px 14px 70px}.hidden{display:none}
 .units{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:13px}.unit,.card{background:white;border-radius:20px;padding:19px;box-shadow:0 6px 20px #17203312}.unit{cursor:pointer}.unit h3{margin:7px 0}.vi{color:#687386}
@@ -80,9 +80,12 @@ button{border:0;border-radius:14px;padding:12px 15px;background:#2864e8;color:wh
   .adventureControls{position:static!important}
 }
 
+
+/* V10.9 Dragon Boat Fishing */
+#dragonBoatCanvas{display:block;width:100%;max-width:900px;height:auto;border-radius:18px;touch-action:none}
 </style></head><body>
 <div id="welcome" class="overlay"><div class="welcome"><div class="star">🌟</div><h1>Chào Gia Khôi!</h1><p id="wish"></p><button onclick="enter()">🚀 Bắt đầu học</button></div></div>
-<header><h1>📚 Laptinh Learning V10.8</h1><p>Tiếng Anh lớp 4 • Góc học tập của Gia Khôi</p><div class="stats">⭐ Tổng sao: <b id="stars">0</b> &nbsp; | &nbsp; 🏆 Unit hoàn thành: <b id="done">0</b>/10</div></header>
+<header><h1>📚 Laptinh Learning V10.9</h1><p>Tiếng Anh lớp 4 • Góc học tập của Gia Khôi</p><div class="stats">⭐ Tổng sao: <b id="stars">0</b> &nbsp; | &nbsp; 🏆 Unit hoàn thành: <b id="done">0</b>/10</div></header>
 <main><section id="home"><h2>10 Unit</h2><div class="card"><b>🎤 Luyện nói V8:</b> Nghe mẫu → đọc → xem % chính xác → đọc lại nếu muốn → nộp bài. Nếu mở file trực tiếp mà Chrome chặn micro, nên đưa file lên website HTTPS để luyện nói ổn định hơn.</div><br><div class="card"><b>🚀 Mới:</b> Hoàn thành Game cuối bài sẽ mở <b>Luyện nâng cao</b>. Phần nâng cao thưởng <b>⭐ x2</b>.</div><br><div id="units" class="units"></div></section>
 <section id="learn" class="hidden"><div class="bar"><button class="light" onclick="home()">← Trang chủ</button><h2 id="utitle"></h2></div><div id="steps" class="steps"></div><div id="content"></div></section></main>
 <footer>❤️ Ba chúc Gia Khôi chăm ngoan, học tốt và tiến bộ mỗi ngày!</footer><script>
@@ -424,13 +427,15 @@ function qa(i,a,b){
 
 function game(){
  if(window.adventureAnim){cancelAnimationFrame(window.adventureAnim);window.adventureAnim=null}
- let done=["match","qa","word","adventure"].filter(x=>localStorage.getItem(key("g_"+x))).length;
+ if(window.dragonBoatAnim){cancelAnimationFrame(window.dragonBoatAnim);window.dragonBoatAnim=null}
+ let done=["match","qa","word","adventure","dragonboat"].filter(x=>localStorage.getItem(key("g_"+x))).length;
  document.getElementById("content").innerHTML=`<div class="card reward"><div class="star">🎮</div><h2>Game Center – Unit ${U.n}</h2>
- <p>Chơi để ôn từ vựng và mẫu câu. Hoàn thành: <b>${done}/4</b> trò.</p>
+ <p>Chơi để ôn từ vựng và mẫu câu. Hoàn thành: <b>${done}/5</b> trò.</p>
  <button class="game" onclick="matchGame4()">🧩 Nối từ với nghĩa</button>
  <button class="game" onclick="qaMatchGame4()">💬 Nối câu hỏi – trả lời</button>
  <button class="game" onclick="wordSearch4()">🔤 Tìm chữ</button>
  <button class="game" onclick="adventureGame4()">🏃 English Adventure</button>
+ <button class="game" onclick="dragonBoatFishing4()">🐉🚣 Câu cá Thuyền Rồng</button>
  ${done?`<p class="goodmsg">⭐ Đã mở Luyện nâng cao. Con có thể chơi tiếp để nhận thêm sao.</p>`:""}
  </div>`;
 }
@@ -563,6 +568,7 @@ function wordSearch4(){
 const ADV_Q4={"1":[["You are from Viet Nam. Where are you from?",["I'm from Viet Nam.","She's from Viet Nam.","He's from Viet Nam.","Yes, I am."],0],["Lucy is from Britain. Where's Lucy from?",["She's from Britain.","She's from Japan.","I'm from Britain.","He's from Britain."],0],["Ben is from America. Where's Ben from?",["He's from America.","She's from America.","He's from Australia.","I'm from America."],0],["Mary is from Singapore. Where's Mary from?",["She's from Singapore.","She's from Malaysia.","I'm from Singapore.","He's from Singapore."],0],["Mai is from Malaysia. Is she from Malaysia?",["Yes, she is.","No, she isn't.","Yes, he is.","She's from Japan."],0],["Tom is from America. Is he from Thailand?",["No, he isn't.","Yes, he is.","No, she isn't.","He's from Thailand."],0],["Nam and Ben are from Australia. Where are they from?",["They're from Australia.","She's from Australia.","I'm from Australia.","They're from Japan."],0],["Which country means “Nhật Bản”?",["Japan","Thailand","Singapore","Malaysia"],0]],"2":[["The clock shows 6:00. What time is it?",["It's six o'clock.","It's seven o'clock.","I get up at six.","It's six thirty."],0],["Nam gets up at 6:00. What time does Nam get up?",["He gets up at six o'clock.","It's six o'clock.","He goes to bed at six.","He gets up at seven."],0],["Mai goes to school at 7:00. What time does Mai go to school?",["She goes to school at seven o'clock.","It's seven o'clock.","She goes to bed at seven.","She goes to school at eight."],0],["Ben has breakfast at 6:15. What time does Ben have breakfast?",["He has breakfast at six fifteen.","He has lunch at six fifteen.","It's six fifteen.","He has breakfast at seven fifteen."],0],["Lucy has lunch at 11:30. What time does Lucy have lunch?",["She has lunch at eleven thirty.","She has dinner at eleven thirty.","It's eleven thirty.","She has lunch at twelve thirty."],0],["Nam does his homework at 7:15. What time does he do his homework?",["He does his homework at seven fifteen.","He gets up at seven fifteen.","It's seven fifteen.","He does his homework at eight fifteen."],0],["Mai goes to bed at 9:00. What time does she go to bed?",["She goes to bed at nine o'clock.","She goes to school at nine.","It's nine o'clock.","She goes to bed at eight."],0],["Ben goes to school at 7:00. Does he go to school at seven?",["Yes, he does.","No, he doesn't.","Yes, he is.","It's seven o'clock."],0]],"3":[["Today is Monday. What day is it today?",["It's Monday.","It's Sunday.","I study at school.","Yes, it is."],0],["Nam studies at school on Monday. What does he do on Monday?",["He studies at school.","He plays football.","It's Monday.","He does housework."],0],["Mai does her homework on Friday. What does she do on Friday?",["She does her homework.","She listens to music.","It's Friday.","She studies on Sunday."],0],["Ben plays football on Saturday. What does he do on Saturday?",["He plays football.","He does housework.","It's Saturday.","He studies at school."],0],["Lucy listens to music on Sunday. What does she do on Sunday?",["She listens to music.","She plays football.","It's Sunday.","She does homework on Friday."],0],["Nam studies at school on Monday. Does he study at school on Monday?",["Yes, he does.","No, he doesn't.","Yes, he is.","It's Monday."],0],["Mai does housework on Sunday. Does she do housework on Sunday?",["Yes, she does.","No, she doesn't.","Yes, she is.","It's Sunday."],0],["Which word means “hôm nay”?",["today","week","Sunday","school"],0]],"4":[["Lan's birthday is in May. When's her birthday?",["It's in May.","It's in March.","She wants a cake.","Yes, it is."],0],["Nam wants some chips. What does he want to eat?",["He wants some chips.","He wants lemonade.","It's in May.","Yes, please."],0],["Mai wants lemonade. What does she want to drink?",["She wants lemonade.","She wants some grapes.","It's in March.","No, it isn't."],0],["Ben wants some jam. Does he want some jam?",["Yes, he does.","No, he doesn't.","Yes, he is.","It's jam."],0],["Lucy doesn't want grapes. Does she want some grapes?",["No, she doesn't.","Yes, she does.","No, she isn't.","It's grapes."],0],["Nam's birthday is in April. Is his birthday in April?",["Yes, it is.","No, it isn't.","Yes, he does.","He wants April."],0],["Which word means “bữa tiệc”?",["party","birthday","grapes","jam"],0],["Which month comes after March?",["April","January","February","May"],0]],"5":[["Nam can swim. Can he swim?",["Yes, he can.","No, he can't.","Yes, he does.","He is swim."],0],["Mai can't cook. Can she cook?",["No, she can't.","Yes, she can.","No, she doesn't.","She is cook."],0],["Ben can draw. What can he do?",["He can draw.","He can swim.","Yes, he can.","He is drawing."],0],["Tom can play the guitar. What can he do?",["He can play the guitar.","He can play the piano.","Yes, he does.","He is a guitar."],0],["Lucy can't roller skate. Can she roller skate?",["No, she can't.","Yes, she can.","No, she doesn't.","She is skate."],0],["Nam can ride a bike. Can he ride a bike?",["Yes, he can.","No, he can't.","Yes, he does.","He is a bike."],0],["Which phrase means “chơi đàn piano”?",["play the piano","play the guitar","ride a bike","roller skate"],0],["Which word means “bơi”?",["swim","cook","draw","play"],0]],"6":[["Nam's school is in the city. Where's his school?",["It's in the city.","It's in the village.","There are three.","Yes, there is."],0],["There are three buildings at Mai's school. How many buildings are there?",["There are three.","There are two.","It's in the city.","Yes, there are."],0],["There are two computer rooms at Ben's school. How many computer rooms are there?",["There are two.","There are three.","It's a computer room.","Yes, there is."],0],["There is a playground at Lucy's school. Is there a playground?",["Yes, there is.","No, there isn't.","Yes, it is.","There are two."],0],["There are two computer rooms at Nam's school. Are there two computer rooms?",["Yes, there are.","No, there aren't.","Yes, there is.","It's two."],0],["There is a garden at Mai's school. Is there a garden?",["Yes, there is.","No, there isn't.","Yes, it is.","There are gardens."],0],["Which word means “sân chơi”?",["playground","garden","building","village"],0],["Which phrase means “phòng máy tính”?",["computer room","computer","room","school"],0]],"7":[["Today Nam has English and Maths. What subjects does he have today?",["He has English and Maths.","He has Music and Art.","It's Monday.","At eight o'clock."],0],["Mai has Science on Tuesday. When does she have Science?",["She has it on Tuesday.","She has it on Friday.","At eight o'clock.","It's Science."],0],["Ben has Music at 8:00. What time does he have Music?",["He has it at eight o'clock.","He has it at nine o'clock.","He has it on Friday.","It's Music."],0],["Lucy has PE today. Does she have PE today?",["Yes, she does.","No, she doesn't.","Yes, she is.","It's PE."],0],["Nam doesn't have History today. Does he have History today?",["No, he doesn't.","Yes, he does.","No, he isn't.","It's History."],0],["Mai has Geography on Thursday. When does she have Geography?",["She has it on Thursday.","She has it on Tuesday.","At nine o'clock.","It's Geography."],0],["Which subject is “Toán”?",["Maths","Music","History","Art"],0],["Which subject is “Khoa học”?",["Science","English","Geography","Vietnamese"],0]],"8":[["Nam's favourite subject is English. What's his favourite subject?",["It's English.","It's Maths.","Because he likes it.","Yes, he does."],0],["Mai likes IT. Does she like IT?",["Yes, she does.","No, she doesn't.","Yes, she is.","It's IT."],0],["Ben likes English because he wants to be an English teacher. Why does he like English?",["Because he wants to be an English teacher.","Because he wants to be a painter.","It's English.","Yes, he does."],0],["Lucy likes Art because she wants to be a painter. Why does she like Art?",["Because she wants to be a painter.","Because she wants to be a singer.","It's Art.","Yes, she is."],0],["Mai likes Music because she wants to be a singer. Why does she like Music?",["Because she wants to be a singer.","Because she wants to be a teacher.","It's Music.","On Friday."],0],["Nam is good at Maths. Is he good at Maths?",["Yes, he is.","No, he isn't.","Yes, he does.","It's Maths."],0],["Which word means “họa sĩ”?",["painter","singer","teacher","subject"],0],["Which word means “yêu thích”?",["favourite","because","good","why"],0]],"9":[["Nam's Sports Day is in June. Is it in June?",["Yes, it is.","No, it isn't.","Yes, he does.","It's Sports Day."],0],["Mai's Sports Day is in October. Is it in July?",["No, it isn't.","Yes, it is.","No, she doesn't.","It's July."],0],["Ben's Sports Day is in October. When's his Sports Day?",["It's in October.","It's in June.","Yes, it is.","He likes October."],0],["Tom's Sports Day is in September. Is it in September?",["Yes, it is.","No, it isn't.","Yes, he does.","He is September."],0],["Lucy likes Sports Day. Does she like Sports Day?",["Yes, she does.","No, she doesn't.","Yes, it is.","It's in May."],0],["Which month comes after August?",["September","July","October","June"],0],["Which month comes before December?",["November","October","September","May"],0],["What does “Sports Day” mean?",["Ngày hội Thể thao","kỳ nghỉ hè","môn Thể dục","sân chơi"],0]],"10":[["Nam was at the beach last weekend. Was he at the beach?",["Yes, he was.","No, he wasn't.","Yes, he is.","He was in London."],0],["Mai wasn't at the campsite last weekend. Was she at the campsite?",["No, she wasn't.","Yes, she was.","No, she doesn't.","She is campsite."],0],["Ben was in London last summer. Where was he last summer?",["He was in London.","He was in Tokyo.","Yes, he was.","He is in London."],0],["Lucy was in Sydney last summer. Where was she last summer?",["She was in Sydney.","She was in Bangkok.","Yes, she was.","She is Sydney."],0],["Tom was in Tokyo last summer. Where was he last summer?",["He was in Tokyo.","He was in London.","Yes, he was.","He is Tokyo."],0],["Nam was in Bangkok last summer. Was he in Bangkok?",["Yes, he was.","No, he wasn't.","Yes, he is.","It's Bangkok."],0],["Which word means “bãi biển”?",["beach","campsite","countryside","holiday"],0],["Which word means “hôm qua”?",["yesterday","last","summer","weekend"],0]]};
 
 let adventureAnim=null;
+let dragonBoatAnim=null;
 function adventureCelebrate4(){
  try{
   const A=window.AudioContext||window.webkitAudioContext,ac=new A(),n=ac.currentTime;
@@ -598,6 +604,252 @@ function pickAdventureTheme4(){
  if(!ids.length)ids=ADV_THEME4.map((_,i)=>i);
  const i=ids[Math.floor(Math.random()*ids.length)];
  window._lastAdvTheme4=i; return ADV_THEME4[i];
+}
+
+
+function dragonBoatFishing4(){
+ if(window.dragonBoatAnim){cancelAnimationFrame(window.dragonBoatAnim);window.dragonBoatAnim=null}
+ if(window.boatKeyDown)document.removeEventListener("keydown",window.boatKeyDown);
+ if(window.boatKeyUp)document.removeEventListener("keyup",window.boatKeyUp);
+
+ const source=(ADV_Q4[U.n]||[]).map(q=>[q[0],[...q[1]],q[2]]);
+ const selected=[...source].sort(()=>Math.random()-.5).slice(0,8);
+ const quiz=selected.map(q=>{
+  let packed=q[1].map((v,i)=>({v,ok:i===q[2]})).sort(()=>Math.random()-.5);
+  return {q:q[0],opts:packed.map(x=>x.v),a:packed.findIndex(x=>x.ok),done:false}
+ });
+ const vocab=[...U.words].sort(()=>Math.random()-.5);
+ const lakeThemes=[
+  ["#bfe8ff","#4db7d8","#0879a8","☁️","🪷"],
+  ["#ffd9b8","#55bfd1","#0c819d","🌤️","🌾"],
+  ["#d6d4ff","#436fa5","#244d7a","⭐","🌙"],
+  ["#d7f7e7","#55b9c7","#18798d","🦋","🌿"],
+  ["#ffe7f3","#4fb8ce","#177e99","🌸","🪷"]
+ ];
+ const theme=lakeThemes[(U.n-1)%lakeThemes.length];
+
+ document.getElementById("content").innerHTML=`<div class="card">
+  <h2>🐉🚣 Câu cá Thuyền Rồng – Unit ${U.n}</h2>
+  <p>Đi thuyền trên hồ, thu hoạch xu và <b>thả câu vào các hộp quà</b>. Có <b>8 hộp câu hỏi ❓</b>, <b>1 Rương Từ Vựng ⭐</b> và <b>1 Hộp Xu Bí Ẩn 🎁</b> chứa ngẫu nhiên <b>10–300 xu</b>. Phải câu đủ tất cả hộp mới được cập bến.</p>
+  <div class="adventureHud">
+   <span>❓ Đúng: <b id="boatDone">0/8</b></span>
+   <span>⭐ Rương từ: <b id="boatVocab">0/1</b></span>
+   <span>🎁 Hộp xu: <b id="boatMystery">0/1</b></span>
+   <span>🪙 Xu: <b id="boatCoins">0</b></span>
+   <span id="boatMsg">🎣 Lái thuyền đến gần hộp rồi bấm Thả câu.</span>
+  </div>
+  <div class="adventureWrap">
+   <canvas id="dragonBoatCanvas" width="900" height="440"></canvas>
+   <div id="boatModal" class="advModal hidden"><div class="advQuiz" id="boatQuiz"></div></div>
+  </div>
+  <div class="adventureControls">
+   <button id="boatLeft">⬅️</button>
+   <button id="boatCast">🎣 Thả câu</button>
+   <button id="boatRight">➡️</button>
+  </div>
+  <p><button class="light" onclick="game()">⬅️ Game Center</button> <button onclick="dragonBoatFishing4()">🔄 Chơi lại</button></p>
+ </div>`;
+
+ const cvs=document.getElementById("dragonBoatCanvas"),ctx=cvs.getContext("2d");
+ const W=6800,H=440,waterTop=155,boatY=165;
+ const boat={x:80,y:boatY,w:105,h:62,dir:1};
+ const hook={down:false,y:boatY+55,maxY:385,speed:8,target:null};
+ const qxs=[650,1350,2100,2850,3650,4450,5250,5900];
+ const gifts=qxs.map((x,i)=>({x,y:295+(i%2)*35,w:46,h:42,type:"q",q:i,opened:false}));
+ const mystery={x:3280,y:340,w:54,h:46,type:"mystery",opened:false,reward:0};
+ const treasure={x:6240,y:315,w:58,h:50,type:"vocab",opened:false};
+ const dock={x:6660,y:190,w:110,h:170};
+ const coinXs=[];for(let x=190;x<6550;x+=110)coinXs.push(x);
+ const coins=coinXs.map((x,i)=>({x,y:215+(i%3)*35,taken:false}));
+ let keys={l:false,r:false},paused=false,won=false,cam=0,coinCount=0,last=performance.now();
+
+ function msg(s){let e=document.getElementById("boatMsg");if(e)e.textContent=s}
+ function closeModal(){document.getElementById("boatModal").classList.add("hidden");paused=false}
+ function openQuiz(g){
+  if(paused||g.opened)return;
+  paused=true;keys.l=keys.r=false;
+  let q=quiz[g.q],b=document.getElementById("boatQuiz");
+  b.innerHTML=`<h3>❓ Hộp câu hỏi ${g.q+1}/8</h3><p class="dialogue"><b>${q.q}</b></p>
+   ${q.opts.map((a,j)=>`<button class="answer" onclick="boatAnswer4(${g.q},${j},this)"><b>${String.fromCharCode(65+j)}.</b> ${a}</button>`).join("")}
+   <div id="boatQfb"></div>`;
+  document.getElementById("boatModal").classList.remove("hidden");
+  window._boatCurrentGift=g;
+ }
+ window.boatAnswer4=(i,a,btn)=>{
+  let q=quiz[i],fb=document.getElementById("boatQfb");
+  if(a===q.a){
+   q.done=true;if(window._boatCurrentGift)window._boatCurrentGift.opened=true;
+   btn.classList.add("correct");coinCount+=5;
+   document.getElementById("boatCoins").textContent=coinCount;
+   document.getElementById("boatDone").textContent=quiz.filter(x=>x.done).length+"/8";
+   fb.innerHTML=`<p class="goodmsg">✅ Chính xác! Câu được hộp quà và nhận +5 xu.</p><button id="boatGo">🚣 Tiếp tục</button>`;
+   document.getElementById("boatGo").onclick=closeModal;
+  }else{
+   btn.disabled=true;btn.classList.add("wrong");
+   fb.innerHTML=`<p class="trymsg">❌ Chưa đúng. ${explain4(q.q,q.opts[q.a])}</p>`;
+  }
+ };
+
+ function openMystery(){
+  if(paused||mystery.opened)return;
+  mystery.opened=true;mystery.reward=Math.floor(Math.random()*291)+10;coinCount+=mystery.reward;paused=true;
+  document.getElementById("boatCoins").textContent=coinCount;
+  document.getElementById("boatMystery").textContent="1/1";
+  document.getElementById("boatQuiz").innerHTML=`<h3>🎁 Hộp Xu Bí Ẩn</h3><div style="font-size:60px">🪙</div>
+   <p>Gia Khôi câu được <b style="font-size:30px">+${mystery.reward} xu</b>!</p>
+   <p>Hộp bí ẩn mỗi lượt có thể chứa từ <b>10 đến 300 xu</b>.</p>
+   <button id="boatMysteryGo">🚣 Tiếp tục</button>`;
+  document.getElementById("boatModal").classList.remove("hidden");
+  document.getElementById("boatMysteryGo").onclick=closeModal;
+ }
+
+ function openVocab(){
+  if(paused||treasure.opened)return;
+  paused=true;let heard=new Set(),bonus=vocab.length*2;
+  let b=document.getElementById("boatQuiz");
+  const draw=()=>{
+   b.innerHTML=`<h3>⭐ Rương Từ Vựng dưới hồ</h3><p>Nghe ít nhất một từ trước khi nhận thưởng và tiếp tục.</p>
+    <div style="max-height:300px;overflow:auto;text-align:left">${vocab.map((w,i)=>`<div style="padding:7px;border-bottom:1px solid #ddd"><b>${w[0]}</b> <span>${w[2]||""}</span> — ${w[1]} <button onclick="boatHearWord4(${i})">🔊 Nghe</button></div>`).join("")}</div>
+    <p><button id="boatClaim" ${heard.size?"":"disabled"}>🪙 Nhận +${bonus} xu & tiếp tục</button></p>`;
+   document.getElementById("boatClaim").onclick=()=>{
+    if(!heard.size)return;treasure.opened=true;coinCount+=bonus;
+    document.getElementById("boatCoins").textContent=coinCount;document.getElementById("boatVocab").textContent="1/1";closeModal()
+   };
+  };
+  window.boatHearWord4=i=>{heard.add(i);speak(vocab[i][0]);draw()};
+  draw();document.getElementById("boatModal").classList.remove("hidden");
+ }
+
+ function nearestCatchable(){
+  const cx=boat.x+boat.w*.55;
+  let targets=[...gifts.filter(g=>!g.opened),...(mystery.opened?[]:[mystery]),...(treasure.opened?[]:[treasure])];
+  targets=targets.filter(g=>Math.abs((g.x+g.w/2)-cx)<72);
+  if(!targets.length)return null;
+  targets.sort((a,b)=>Math.abs(a.x-cx)-Math.abs(b.x-cx));
+  return targets[0];
+ }
+ function cast(){
+  if(paused||hook.down)return;
+  let tar=nearestCatchable();
+  if(!tar){msg("🎣 Chưa có hộp quà ngay dưới thuyền. Hãy lái đến gần hơn.");return}
+  hook.down=true;hook.target=tar;hook.y=boatY+55;keys.l=keys.r=false;msg("🎣 Đang thả câu...")
+ }
+ function bind(id,k){
+  let el=document.getElementById(id);
+  let on=e=>{e.preventDefault();if(!paused&&!hook.down)keys[k]=true};
+  let off=e=>{e.preventDefault();keys[k]=false};
+  el.addEventListener("pointerdown",on);["pointerup","pointercancel","pointerleave"].forEach(x=>el.addEventListener(x,off))
+ }
+ bind("boatLeft","l");bind("boatRight","r");
+ document.getElementById("boatCast").addEventListener("pointerdown",e=>{e.preventDefault();cast()});
+ window.boatKeyDown=e=>{
+  if(!document.getElementById("dragonBoatCanvas"))return;
+  if(e.key==="ArrowLeft")keys.l=true;if(e.key==="ArrowRight")keys.r=true;
+  if(e.key==="ArrowDown"||e.key===" "){e.preventDefault();cast()}
+ };
+ window.boatKeyUp=e=>{if(e.key==="ArrowLeft")keys.l=false;if(e.key==="ArrowRight")keys.r=false};
+ document.addEventListener("keydown",window.boatKeyDown);document.addEventListener("keyup",window.boatKeyUp);
+
+ function update(dt){
+  if(paused||won)return;
+  let speed=5.4;
+  if(!hook.down){if(keys.r){boat.x+=speed;boat.dir=1}if(keys.l){boat.x-=speed;boat.dir=-1}}
+  boat.x=Math.max(15,Math.min(W-boat.w-20,boat.x));
+
+  // Floating coins are collected when the dragon boat passes close to them.
+  coins.forEach(c=>{
+   if(!c.taken&&Math.abs((boat.x+boat.w/2)-c.x)<55&&Math.abs((boatY+45)-c.y)<100){
+    c.taken=true;coinCount++;document.getElementById("boatCoins").textContent=coinCount
+   }
+  });
+
+  if(hook.down&&hook.target){
+   hook.y+=hook.speed;
+   let ty=hook.target.y+5;
+   if(hook.y>=ty){
+    let tar=hook.target;hook.down=false;hook.target=null;hook.y=boatY+55;
+    if(tar.type==="q")openQuiz(tar);
+    else if(tar.type==="mystery")openMystery();
+    else openVocab();
+   }
+  }
+
+  cam=Math.max(0,Math.min(W-cvs.width,boat.x-cvs.width*.38));
+
+  if(boat.x+boat.w>dock.x){
+   if(quiz.every(q=>q.done)&&mystery.opened&&treasure.opened){
+    won=true;markGame4("dragonboat");adventureCelebrate4();
+    document.getElementById("content").innerHTML=`<div class="card reward" style="text-align:center">
+     <div style="font-size:72px">🐉🚣🎉🏆</div><h2>Chúc mừng Gia Khôi!</h2>
+     <h3>Con đã hoàn thành thử thách Câu cá Thuyền Rồng – Unit ${U.n}!</h3>
+     <p>Con đã câu đủ <b>8/8 hộp câu hỏi</b>, <b>Rương Từ Vựng</b> và <b>Hộp Xu Bí Ẩn</b>.</p>
+     <p style="font-size:26px">🪙 Tổng thu hoạch: <b>${coinCount} xu</b></p>
+     <p>🌟 Tuyệt vời! Thuyền rồng đã cập bến an toàn.</p>
+     <button onclick="game()">➡️ Game Center</button> <button onclick="dragonBoatFishing4()">🔄 Chơi lại</button></div>`;
+   }else{
+    boat.x=dock.x-boat.w-20;
+    let miss=[];if(!quiz.every(q=>q.done))miss.push("8 hộp câu hỏi");if(!treasure.opened)miss.push("Rương Từ Vựng");if(!mystery.opened)miss.push("Hộp Xu Bí Ẩn");
+    msg("⛔ Chưa thể cập bến. Còn phải câu: "+miss.join(", ")+".")
+   }
+  }
+ }
+
+ function drawDragonBoat(x,y){
+  ctx.save();ctx.translate(x,y);
+  if(boat.dir<0){ctx.translate(boat.w,0);ctx.scale(-1,1)}
+  // Hull
+  ctx.fillStyle="#b91c1c";ctx.beginPath();ctx.moveTo(6,34);ctx.lineTo(95,34);ctx.lineTo(82,54);ctx.lineTo(20,54);ctx.closePath();ctx.fill();
+  ctx.fillStyle="#facc15";ctx.fillRect(22,31,58,5);
+  // Dragon head
+  ctx.fillStyle="#16a34a";ctx.beginPath();ctx.arc(91,27,13,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle="#22c55e";ctx.beginPath();ctx.moveTo(99,25);ctx.lineTo(110,19);ctx.lineTo(104,31);ctx.closePath();ctx.fill();
+  ctx.fillStyle="#fff";ctx.beginPath();ctx.arc(95,23,3,0,Math.PI*2);ctx.fill();ctx.fillStyle="#111";ctx.beginPath();ctx.arc(96,23,1.3,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle="#facc15";ctx.fillRect(85,10,5,10);ctx.fillRect(99,9,5,11);
+  // Person
+  ctx.fillStyle="#2563eb";ctx.fillRect(48,16,13,20);ctx.fillStyle="#ffd2ad";ctx.beginPath();ctx.arc(55,11,7,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle="#7c2d12";ctx.fillRect(47,3,16,4);
+  // Fishing rod
+  ctx.strokeStyle="#5b3a22";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(60,20);ctx.lineTo(80,2);ctx.stroke();
+  ctx.restore()
+ }
+ function drawGift(g){
+  ctx.fillStyle=g.opened?"#8b9aa5":g.type==="mystery"?"#f59e0b":g.type==="vocab"?"#7c3aed":"#0f78b8";
+  ctx.fillRect(g.x,g.y,g.w,g.h);ctx.strokeStyle="#fff";ctx.lineWidth=3;ctx.strokeRect(g.x,g.y,g.w,g.h);
+  ctx.fillStyle="#fff";ctx.font="bold 20px Arial";ctx.fillText(g.opened?"✓":g.type==="mystery"?"🎁":g.type==="vocab"?"⭐":"?",g.x+11,g.y+28)
+ }
+ function draw(){
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  ctx.fillStyle=theme[0];ctx.fillRect(0,0,cvs.width,cvs.height);
+  ctx.save();ctx.translate(-cam,0);
+  // Distant banks
+  ctx.fillStyle="#5fa85b";for(let x=0;x<W;x+=420){ctx.beginPath();ctx.arc(x+150,waterTop+20,130,Math.PI,Math.PI*2);ctx.fill()}
+  // Lake
+  ctx.fillStyle=theme[1];ctx.fillRect(0,waterTop,W,H-waterTop);
+  ctx.strokeStyle=theme[2];ctx.lineWidth=2;
+  for(let y=205;y<430;y+=45){ctx.beginPath();for(let x=0;x<W;x+=70){ctx.moveTo(x,y);ctx.quadraticCurveTo(x+18,y-5,x+35,y);ctx.quadraticCurveTo(x+52,y+5,x+70,y)}ctx.stroke()}
+  // Unit scenery
+  ctx.font="26px sans-serif";for(let x=250;x<W;x+=620)ctx.fillText((x/620)%2<1?theme[3]:theme[4],x,110+((x/620)%3)*10);
+  ctx.font="22px sans-serif";for(let x=430;x<W;x+=760)ctx.fillText((U.n+x)%2?"🐟":"🪷",x,385);
+
+  coins.forEach((c,i)=>{if(!c.taken){ctx.font="18px sans-serif";ctx.fillText(i%6===0?"🐟":"🪙",c.x,c.y)}});
+  gifts.forEach(drawGift);drawGift(mystery);drawGift(treasure);
+
+  // Dock/finish
+  ctx.fillStyle="#7c4a24";ctx.fillRect(dock.x,190,110,22);for(let x=dock.x+8;x<dock.x+110;x+=30)ctx.fillRect(x,190,8,170);
+  ctx.font="24px sans-serif";ctx.fillText("🏁 BẾN",dock.x+12,180);
+
+  drawDragonBoat(boat.x,boatY);
+  if(hook.down&&hook.target){
+   let hx=boat.x+80;ctx.strokeStyle="#333";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(hx,boatY+4);ctx.lineTo(hx,hook.y);ctx.stroke();
+   ctx.font="22px sans-serif";ctx.fillText("🪝",hx-9,hook.y+7)
+  }
+  ctx.restore()
+ }
+ function loop(ts){
+  let dt=Math.min(40,ts-last);last=ts;update(dt);draw();
+  if(document.getElementById("dragonBoatCanvas")&&!won)window.dragonBoatAnim=requestAnimationFrame(loop)
+ }
+ window.dragonBoatAnim=requestAnimationFrame(loop)
 }
 
 function adventureGame4(){
